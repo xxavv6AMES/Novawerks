@@ -1,0 +1,96 @@
+<Page x:Class="NovawerksApp.NWAS"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Novawerks Addon Store"
+      Background="#000000"
+      Foreground="#FFFFFF">
+
+    <!-- Root Grid Element -->
+    <Grid>
+        <!-- Define Rows for Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- For Header -->
+            <RowDefinition Height="*"/>    <!-- For Content -->
+            <RowDefinition Height="Auto"/> <!-- For Footer -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="#1F1F1F" Height="50" VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Back Button -->
+                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
+                    <Image Source="Images\fullback.png" Width="24" Height="24"/>
+                </Button>
+
+                <!-- Page Title -->
+                <TextBlock Grid.Column="1" Text="    Novawerks Addon Store" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFFFFF" FontWeight="Bold" FontFamily="{StaticResource xGFF}"/>
+            </Grid>
+        </Border>
+
+        <!-- Content Area -->
+        <Grid Grid.Row="1" Margin="20,20,20,20">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Addon Store Intro Text -->
+                    <TextBlock Text="Welcome to the Novawerks Addon Store!" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="Browse and download addons to enhance your development experience." FontSize="16" Margin="0,0,0,20" Foreground="#CCCCCC" FontFamily="{StaticResource xGFF}"/>
+
+                    <!-- List of Addons -->
+                    <StackPanel>
+                        <!-- First Addon -->
+                        <Border Background="#2F2F2F" Padding="10" Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="Addon 1: Code Highlighter" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
+                                <TextBlock Text="Enhance your coding experience with customizable syntax highlighting." FontSize="14" Foreground="#CCCCCC" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
+                                <TextBlock>
+                                    <Hyperlink NavigateUri="https://example.com/addon1">
+                                        <TextBlock Text="Download Now" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Second Addon -->
+                        <Border Background="#2F2F2F" Padding="10" Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="Addon 2: Debugger Enhancer" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
+                                <TextBlock Text="Advanced tools to improve debugging workflow and catch errors faster." FontSize="14" Foreground="#CCCCCC" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
+                                <TextBlock>
+                                    <Hyperlink NavigateUri="https://example.com/addon2">
+                                        <TextBlock Text="Download Now" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Third Addon -->
+                        <Border Background="#2F2F2F" Padding="10" Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="Addon 3: Theme Customizer" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
+                                <TextBlock Text="Customize your development environment with multiple theme options." FontSize="14" Foreground="#CCCCCC" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
+                                <TextBlock>
+                                    <Hyperlink NavigateUri="https://example.com/addon3">
+                                        <TextBlock Text="Download Now" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Footer (Add if needed) -->
+        <!-- Uncomment and add content if you have footer information -->
+        <!--
+        <Border Grid.Row="2" Background="#1F1F1F" Height="30" VerticalAlignment="Bottom">
+            <TextBlock Text="Footer Content" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF"/>
+        </Border>
+        -->
+    </Grid>
+</Page>

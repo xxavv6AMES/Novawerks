@@ -1,29 +1,81 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Documents;
 
 namespace NovawerksApp
 {
     public partial class MainWindow : Window
     {
+        // Define a custom RoutedUICommand for Help
+        public static readonly RoutedUICommand HelpCommand = new RoutedUICommand(
+            "Help Command",
+            "HelpCommand",
+            typeof(MainWindow)
+        );
+
         public MainWindow()
         {
             InitializeComponent();
+            RegisterCommandBindings();
+        }
+
+        private void RegisterCommandBindings()
+        {
+            CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, OpenCommand_Executed));
+            CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, SaveCommand_Executed));
+            CommandBindings.Add(new CommandBinding(ApplicationCommands.Close, ExitCommand_Executed));
+            CommandBindings.Add(new CommandBinding(ApplicationCommands.Undo, UndoCommand_Executed));
+            CommandBindings.Add(new CommandBinding(ApplicationCommands.Redo, RedoCommand_Executed));
+            CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh, RefreshCommand_Executed));
+            CommandBindings.Add(new CommandBinding(HelpCommand, HelpCommand_Executed));
+        }
+
+        // Command Handlers
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenMenuItem_Click(sender, e);
+        }
+
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveMenuItem_Click(sender, e);
+        }
+
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ExitMenuItem_Click(sender, e);
+        }
+
+        private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            UndoMenuItem_Click(sender, e);
+        }
+
+        private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            RedoMenuItem_Click(sender, e);
+        }
+
+        private void RefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            RefreshMenuItem_Click(sender, e);
+        }
+
+        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HelpMenuItem_Click(sender, e);
         }
 
         // Menu Item Event Handlers
-        private void NewMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("New clicked!");
-        }
-
         private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Add code to handle opening a file
             MessageBox.Show("Open clicked!");
         }
 
         private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Add code to handle saving a file
             MessageBox.Show("Save clicked!");
         }
 
@@ -42,39 +94,26 @@ namespace NovawerksApp
             MessageBox.Show("Redo clicked!");
         }
 
-        private void CutMenuItem_Click(object sender, RoutedEventArgs e)
+        private void RefreshMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Cut clicked!");
+            MessageBox.Show("Refresh clicked!");
         }
 
-        private void CopyMenuItem_Click(object sender, RoutedEventArgs e)
+        // Navigation to NWAS Addon Store Page
+        private void AddonStoreMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Copy clicked!");
+            NWAS addonStorePage = new NWAS();
+            MainFrame.Navigate(addonStorePage);  // Use MainFrame for navigation
         }
 
-        private void PasteMenuItem_Click(object sender, RoutedEventArgs e)
+        private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Paste clicked!");
-        }
-
-        private void ZoomInMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Zoom In clicked!");
-        }
-
-        private void ZoomOutMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Zoom Out clicked!");
-        }
-
-        private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("About clicked!");
-        }
-
-        private void HelpContentsMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Help Contents clicked!");
+            // Toggle visibility of the Help Sidebar
+            HelpSidebar.Visibility = HelpSidebar.Visibility == Visibility.Collapsed
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
     }
 }
+
+

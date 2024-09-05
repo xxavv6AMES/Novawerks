@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:NovawerksApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Define the Variable Font -->
+        <FontFamily x:Key="xGFF">/Fonts/#WMFD</FontFamily>
+
+        <!-- Default Style for TextBlocks using the Variable Font -->
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource xGFF}" />
+            <Setter Property="FontWeight" Value="400"/> <!-- Adjustable weight -->
+            <Setter Property="FontStretch" Value="Normal"/> <!-- Adjustable width -->
+            <Setter Property="FontStyle" Value="Normal"/> <!-- Italic, oblique, etc. -->
+        </Style>
     </Application.Resources>
 </Application>
