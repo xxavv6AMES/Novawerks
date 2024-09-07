@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\mxavn\NovawerksApp\App.xaml
-2-76394447
+5-608760529
 3-550295789
-578065697
+82101574433
 2011305668131
-MainWindow.xaml;NWAS.xaml;
+ForumPage.xaml;MainPage.xaml;MainWindow.xaml;NWAS.xaml;TutorialOverlay.xaml;
 
 False
 

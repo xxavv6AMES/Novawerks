@@ -23,14 +23,26 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Back Button -->
-                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
-                    <Image Source="Images\fullback.png" Width="24" Height="24"/>
+                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" FontFamily="{StaticResource xGFF}">
+                    <Image Source='Images\fullback.png' Width="24" Height="24"/>
                 </Button>
 
                 <!-- Page Title -->
-                <TextBlock Grid.Column="1" Text="    Novawerks Addon Store" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFFFFF" FontWeight="Bold" FontFamily="{StaticResource xGFF}"/>
+                <TextBlock Grid.Column="1" Text="    Novawerks Addon Store (Preview)" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFFFFF" FontWeight="Bold" FontFamily="{StaticResource xGFF}"/>
             </Grid>
         </Border>
+
+        <!-- Left Menu (Initially Collapsed) -->
+        <Border x:Name="LeftMenu" Background="#2F2F2F" Width="250" HorizontalAlignment="Left" VerticalAlignment="Stretch" Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="5" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="5" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="5" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Hover Area -->
+        <Border x:Name="HoverArea" Background="Transparent" Width="10" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
 
         <!-- Content Area -->
         <Grid Grid.Row="1" Margin="20,20,20,20">
@@ -48,8 +60,8 @@
                                 <TextBlock Text="Addon 1: Code Highlighter" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
                                 <TextBlock Text="Enhance your coding experience with customizable syntax highlighting." FontSize="14" Foreground="#CCCCCC" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
                                 <TextBlock>
-                                    <Hyperlink NavigateUri="https://example.com/addon1">
-                                        <TextBlock Text="Download Now" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    <Hyperlink NavigateUri="https://example.com/addon1" Foreground="#8C52FF">
+                                        <TextBlock Text="Download Now" FontFamily="{StaticResource xGFF}"/>
                                     </Hyperlink>
                                 </TextBlock>
                             </StackPanel>
@@ -61,8 +73,8 @@
                                 <TextBlock Text="Addon 2: Debugger Enhancer" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
                                 <TextBlock Text="Advanced tools to improve debugging workflow and catch errors faster." FontSize="14" Foreground="#CCCCCC" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
                                 <TextBlock>
-                                    <Hyperlink NavigateUri="https://example.com/addon2">
-                                        <TextBlock Text="Download Now" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    <Hyperlink NavigateUri="https://example.com/addon2" Foreground="#8C52FF">
+                                        <TextBlock Text="Download Now" FontFamily="{StaticResource xGFF}"/>
                                     </Hyperlink>
                                 </TextBlock>
                             </StackPanel>
@@ -74,8 +86,8 @@
                                 <TextBlock Text="Addon 3: Theme Customizer" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
                                 <TextBlock Text="Customize your development environment with multiple theme options." FontSize="14" Foreground="#CCCCCC" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
                                 <TextBlock>
-                                    <Hyperlink NavigateUri="https://example.com/addon3">
-                                        <TextBlock Text="Download Now" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    <Hyperlink NavigateUri="https://example.com/addon3" Foreground="#8C52FF">
+                                        <TextBlock Text="Download Now" FontFamily="{StaticResource xGFF}"/>
                                     </Hyperlink>
                                 </TextBlock>
                             </StackPanel>

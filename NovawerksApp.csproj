@@ -13,9 +13,9 @@
     <None Update="Images/novawerks1.ico">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Resource Include="Fonts\WMFD.ttf">
-        <LogicalName>Fonts/YWMFD.ttf</LogicalName>
-    </Resource>
+    <None Update="Fonts/WMFD.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
