@@ -1,12 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace NovawerksApp
 {
@@ -15,7 +17,10 @@ namespace NovawerksApp
         private const string SettingsFilePath = "settings.json";
         private const string CurrentVersion = "0.6.0-EA"; // Current version of the app
         private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; // Replace with your actual repository URL
-        private const string GitHubDownloadUrlBase = "https://github.com/xxavv6AMES/Novawerks/releases/download/"; // Base URL for download links
+
+        // Define colors for highlighting
+        private const string InactiveTextColor = "#FFFFFF"; // Example: white for inactive
+        private const string ActiveTextColor = "#FF5722"; // Example: orange for active
 
         public SettingsPage()
         {
@@ -74,7 +79,7 @@ namespace NovawerksApp
         {
             try
             {
-                string latestVersion = await GetLatestReleaseVersionFromGitHub();
+                var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
 
                 if (!string.IsNullOrEmpty(latestVersion) && latestVersion != CurrentVersion)
                 {
@@ -95,34 +100,20 @@ namespace NovawerksApp
         {
             try
             {
-                string latestVersion = await GetLatestReleaseVersionFromGitHub();
+                var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
 
-                if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion)
+                if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion || string.IsNullOrEmpty(downloadUrl))
                 {
                     MessageBox.Show("No update available.");
                     return;
                 }
 
-                string downloadUrl = $"{GitHubDownloadUrlBase}v{latestVersion}/NDE.Setup.exe"; // Adjust the URL if needed
+                // Download the update
                 string tempFilePath = Path.GetTempFileName();
+                await DownloadFileAsync(downloadUrl, tempFilePath);
 
-                using (HttpClient client = new HttpClient())
-                {
-                    using (HttpResponseMessage response = await client.GetAsync(downloadUrl))
-                    {
-                        response.EnsureSuccessStatusCode();
-                        byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
-                        await File.WriteAllBytesAsync(tempFilePath, fileBytes);
-                    }
-                }
-
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = tempFilePath,
-                    UseShellExecute = true
-                });
-
-                Application.Current.Shutdown(); // Optionally shut down the app after starting the installer
+                // Install the update
+                InstallUpdate(tempFilePath);
             }
             catch (Exception ex)
             {
@@ -130,7 +121,7 @@ namespace NovawerksApp
             }
         }
 
-        private async Task<string> GetLatestReleaseVersionFromGitHub()
+        private async Task<(string, string)> GetLatestReleaseVersionFromGitHub()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -142,8 +133,16 @@ namespace NovawerksApp
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     JObject releaseData = JObject.Parse(jsonResponse);
 
+                    // Extract the latest version tag name and download URL
                     string latestVersionTag = releaseData["tag_name"]?.ToString();
-                    return latestVersionTag?.TrimStart('v');
+                    string latestVersion = latestVersionTag?.TrimStart('v');
+
+                    var assets = releaseData["assets"] as JArray;
+                    string downloadUrl = assets?
+                        .FirstOrDefault(asset => asset["name"]?.ToString() == "NDE.Setup.exe")?
+                        ["browser_download_url"]?.ToString();
+
+                    return (latestVersion, downloadUrl);
                 }
                 else
                 {
@@ -152,9 +151,56 @@ namespace NovawerksApp
             }
         }
 
+        private async Task DownloadFileAsync(string url, string outputPath)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
+                using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    response.EnsureSuccessStatusCode();
+                    using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                           fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                    {
+                        await contentStream.CopyToAsync(fileStream);
+                    }
+                }
+            }
+        }
+
+        private void InstallUpdate(string filePath)
+        {
+            try
+            {
+                // Ensure that the file exists
+                if (File.Exists(filePath))
+                {
+                    // Start the installer process
+                    var processStartInfo = new ProcessStartInfo
+                    {
+                        FileName = filePath,
+                        Arguments = "/silent", // Use silent or any other arguments if needed
+                        UseShellExecute = true, // Ensures the file is executed with the default application
+                        Verb = "runas" // Optional: Run as administrator
+                    };
+
+                    Process.Start(processStartInfo);
+                    Application.Current.Shutdown(); // Close the current application
+                }
+                else
+                {
+                    MessageBox.Show("Update file not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during update process: {ex.Message}");
+            }
+        }
+
         private void OpenChangelog_Click(object sender, RoutedEventArgs e)
         {
-            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.6.0"; // Replace with actual URL
+            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.6.0-EA"; // Replace with actual URL
 
             Process.Start(new ProcessStartInfo
             {
@@ -162,12 +208,47 @@ namespace NovawerksApp
                 UseShellExecute = true
             });
         }
-    }
 
-    public class UserSettings
-    {
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Theme { get; set; }
+        // Sidebar Button Click Event Handlers
+        private void MainPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainPage());
+            HighlightCurrentPage("MainPageMenuItem");
+        }
+
+        private void ForumPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ForumPage());
+            HighlightCurrentPage("ForumPageMenuItem");
+        }
+
+        private void NWASPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new NWAS());
+            HighlightCurrentPage("NWASPageMenuItem");
+        }
+
+        // Highlight the current page in the menu
+        private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
+        {
+            // Reset all menu items to inactive color
+            MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
+            ForumPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
+            NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
+
+            // Highlight the current page
+            var activeTextBlock = FindName(activePageName) as TextBlock;
+            if (activeTextBlock != null)
+            {
+                activeTextBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ActiveTextColor));
+            }
+        }
+
+        public class UserSettings
+        {
+            public string Username { get; set; }
+            public string Email { get; set; }
+            public string Theme { get; set; }
+        }
     }
 }

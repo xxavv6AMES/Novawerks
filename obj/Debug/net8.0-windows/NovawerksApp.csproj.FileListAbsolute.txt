@@ -136,3 +136,5 @@ C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\UpdatePromptWindow.baml
 C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\UpdatePromptWindow.g.cs
 C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\UpdateProgressWindow.baml
 C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\UpdateProgressWindow.g.cs
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\LoadingWindow.baml
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\LoadingWindow.g.cs

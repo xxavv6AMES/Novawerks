@@ -1,129 +1,63 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using Newtonsoft.Json.Linq;
 
 namespace NovawerksApp
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private const string TutorialShownFile = "tutorial_shown.txt";
-        private const string CurrentVersion = "0.6.0-EA"; // Current version of the app
-        private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; // Replace with your actual repository URL
-        private const string DownloadUrlBase = "https://github.com/xxavv6AMES/Novawerks/releases/download/";
+        private LoadingWindow _loadingWindow;
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            // Check if the tutorial has been shown before
-            if (!File.Exists(TutorialShownFile))
-            {
-                // Show tutorial overlay
-                var tutorialOverlay = new TutorialOverlay();
-                tutorialOverlay.ShowDialog();
-
-                // Create file to mark tutorial as shown
-                File.Create(TutorialShownFile).Dispose();
-            }
+            _loadingWindow = new LoadingWindow();
+            _loadingWindow.Show();
 
             try
             {
-                // Check for updates
-                string latestVersion = await GetLatestReleaseVersionFromGitHub();
-
-                if (!string.IsNullOrEmpty(latestVersion) && latestVersion != CurrentVersion)
+                if (!await CheckInternetConnectivity())
                 {
-                    // Show the progress window and start the update process
-                    UpdateProgressWindow updateProgressWindow = new UpdateProgressWindow(latestVersion);
-                    updateProgressWindow.Show();
-
-                    // Download and install the update
-                    string updateUrl = $"{DownloadUrlBase}v{latestVersion}/NDE.Setup.exe";
-                    string tempFilePath = Path.GetTempFileName();
-
-                    // Close the main window and update
-                    Application.Current.MainWindow?.Close();
-                    InstallUpdate(tempFilePath);
-                    
-                    await DownloadFileAsync(updateUrl, tempFilePath);
-
-                    // Relaunch the application
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = Process.GetCurrentProcess().MainModule.FileName,
-                        UseShellExecute = true
-                    });
-
-                    Application.Current.Shutdown();
+                    MessageBox.Show("No internet connection detected. The application requires an internet connection to function properly.");
+                    Shutdown(); // Exit the application
+                    return;
                 }
-                else
-                {
-                    // Proceed with normal startup
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                }
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Loaded += MainWindow_Loaded; // Close the loading window when the main window is fully loaded
+                mainWindow.Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during update process: {ex.Message}");
-                // Proceed with normal startup in case of an error
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                MessageBox.Show($"Error during startup: {ex.Message}");
+                Shutdown(); // Exit the application on error
             }
         }
 
-        private async Task<string> GetLatestReleaseVersionFromGitHub()
+        private async Task<bool> CheckInternetConnectivity()
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-
-                HttpResponseMessage response = await client.GetAsync(GitHubReleasesApiUrl);
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    JObject releaseData = JObject.Parse(jsonResponse);
-                    string latestVersionTag = releaseData["tag_name"]?.ToString();
-                    return latestVersionTag?.TrimStart('v');
+                    client.Timeout = TimeSpan.FromSeconds(5); // Short timeout
+                    HttpResponseMessage response = await client.GetAsync("https://www.google.com");
+                    return response.IsSuccessStatusCode;
                 }
-                else
-                {
-                    throw new Exception("Failed to fetch latest release data from GitHub.");
-                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        private async Task DownloadFileAsync(string url, string outputPath)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            using (HttpClient client = new HttpClient())
+            // Close the loading window when the main window is fully loaded
+            if (_loadingWindow != null)
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-                using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    response.EnsureSuccessStatusCode();
-                    using (Stream contentStream = await response.Content.ReadAsStreamAsync(), 
-                           fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
-                    {
-                        await contentStream.CopyToAsync(fileStream);
-                    }
-                }
+                _loadingWindow.Close();
             }
-        }
-
-        private void InstallUpdate(string filePath)
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = filePath,
-                Arguments = "/silent",
-                UseShellExecute = true,
-                Verb = "runas"
-            });
         }
     }
 }

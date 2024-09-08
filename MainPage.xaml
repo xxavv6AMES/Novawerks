@@ -76,11 +76,11 @@
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                         <StackPanel>
                             <TextBlock Text="Latest Update:" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="v0.5.2" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="The initial version of Novawerks! :)&#x0a;We’re thrilled to announce the inaugural release of the Novawerks Desktop Experience (NDE)&#x0a; with version 0.5.2! " FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="v0.6.0-EA" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="The second EarlyAccess build of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website, including&#x0a;big improvements from version 0.5.2." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                             <TextBlock>
                                 <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="Read about this update." Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                    <TextBlock Text="Read about this update" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>
@@ -90,10 +90,10 @@
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                         <StackPanel>
                             <TextBlock Text="Latest Blog Post" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Welcome to the Novawerks Forums!" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="We’re thrilled to have you join our community. Read all about here." FontSize="14" Foreground="#B0B0B0" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Join The WerksClub!" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="The WerksClub is Novawerks' official newsletter. Here's why we think you should join us." FontSize="14" Foreground="#B0B0B0" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
                             <TextBlock>
-                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com/d/4" RequestNavigate="Hyperlink_RequestNavigate">
+                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com/blog/16" RequestNavigate="Hyperlink_RequestNavigate">
                                     <TextBlock Text="Read More" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
                                 </Hyperlink>
                             </TextBlock>

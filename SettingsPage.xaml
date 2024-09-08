@@ -7,10 +7,27 @@
       Title="SettingsPage"
       Background="#000000"> <!-- AMOLED Black -->
 
-    <Grid Margin="20">
-        <!-- Account Section -->
-        <StackPanel VerticalAlignment="Top">
-            <!-- Account Settings -->
+    <Grid>
+        <!-- Define a grid with two columns: one for the sidebar and one for the content -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/> <!-- Sidebar Width -->
+            <ColumnDefinition Width="*"/>   <!-- Content Width -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Menu -->
+        <Border x:Name="LeftMenu" Background="#2F2F2F" Grid.Column="0" VerticalAlignment="Stretch" Visibility="Visible">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="20">
+            <!-- Account Section -->
             <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
                 <StackPanel>
                     <TextBlock Text="Account Settings" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" /> <!-- Orange Accent -->
