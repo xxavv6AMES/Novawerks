@@ -16,6 +16,9 @@
     <None Update="Fonts/WMFD.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Squirrel.Windows" Version="2.0.1" />
   </ItemGroup>
 
 </Project>

@@ -35,21 +35,21 @@
             <MenuItem Header="_Help">
                 <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
             </MenuItem>
-            <MenuItem Header="_Store">
-                <MenuItem Header="_Addon Store" InputGestureText="Ctrl+A" Click="AddonStoreMenuItem_Click" Foreground="#B0B0B0"/>
-            </MenuItem>
-            <MenuItem Header="_Forum">
-                <MenuItem Header="_Novawerks Forum" Click="ForumMenuItem_Click" Foreground="#B0B0B0"/>
-            </MenuItem>
         </Menu>
 
         <!-- Left Menu (Initially Collapsed) -->
         <Border x:Name="LeftMenu" Background="#2F2F2F" Width="250" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Visibility="Collapsed">
-            <StackPanel>
-                <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-            </StackPanel>
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                </StackPanel>
+
+                <!-- Settings Button -->
+                <Button x:Name="SettingsButton" Content="Settings" Height="40" Background="#8C52FF" Foreground="White" VerticalAlignment="Bottom" Margin="10"
+                        Click="SettingsButton_Click" FontFamily="{StaticResource xGFF}" FontWeight="Bold"/>
+            </DockPanel>
         </Border>
 
         <!-- Help Sidebar (Initially Collapsed) -->
@@ -68,15 +68,21 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel>
                     <!-- Intro Text -->
-                    <TextBlock Text="Welcome to the Novawerks App" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock Text="This is a basic UI with an AMOLED dark theme." FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="Welcome to the Novawerks Desktop Experience (NDE)" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive.
+" FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
 
                     <!-- Latest App Update Information -->
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                         <StackPanel>
                             <TextBlock Text="Latest Update:" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Version 1" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="The initial version of Novawerks! :)" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="v0.5.2" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="The initial version of Novawerks! :)&#x0a;We’re thrilled to announce the inaugural release of the Novawerks Desktop Experience (NDE)&#x0a; with version 0.5.2! " FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock>
+                                <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
+                                    <TextBlock Text="Read about this update." Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                                </Hyperlink>
+                            </TextBlock>
                         </StackPanel>
                     </Border>
 
@@ -84,10 +90,10 @@
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                         <StackPanel>
                             <TextBlock Text="Latest Blog Post" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Title of the latest post" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Description of the latest post." FontSize="14" Foreground="#B0B0B0" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Welcome to the Novawerks Forums!" FontSize="18" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="We’re thrilled to have you join our community. Read all about here." FontSize="14" Foreground="#B0B0B0" TextWrapping="Wrap" FontFamily="{StaticResource xGFF}"/>
                             <TextBlock>
-                                <Hyperlink NavigateUri="http://example.com">
+                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com/d/4" RequestNavigate="Hyperlink_RequestNavigate">
                                     <TextBlock Text="Read More" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
                                 </Hyperlink>
                             </TextBlock>

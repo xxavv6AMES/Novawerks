@@ -13,7 +13,11 @@
     <SourceRoot Include="C:\Users\mxavn\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)squirrel.windows\2.0.1\build\squirrel.windows.props" Condition="Exists('$(NuGetPackageRoot)squirrel.windows\2.0.1\build\squirrel.windows.props')" />
+  </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Pkgsquirrel_windows Condition=" '$(Pkgsquirrel_windows)' == '' ">C:\Users\mxavn\.nuget\packages\squirrel.windows\2.0.1</Pkgsquirrel_windows>
     <PkgMicrosoft_Web_WebView2 Condition=" '$(PkgMicrosoft_Web_WebView2)' == '' ">C:\Users\mxavn\.nuget\packages\microsoft.web.webview2\1.0.2739.15</PkgMicrosoft_Web_WebView2>
   </PropertyGroup>
 </Project>

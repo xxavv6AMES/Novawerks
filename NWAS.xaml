@@ -1,7 +1,7 @@
 <Page x:Class="NovawerksApp.NWAS"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Novawerks Addon Store"
+      Title="Novawerks Addon Store (Preview)"
       Background="#000000"
       Foreground="#FFFFFF">
 

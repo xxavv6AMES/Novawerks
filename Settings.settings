@@ -1,0 +1,9 @@
+namespace NovawerksApp
+{
+    public static class Settings
+    {
+        public static string Username { get; set; } = "DefaultUsername";
+        public static string Email { get; set; } = "default@example.com";
+        public static string Theme { get; set; } = "Light";
+    }
+}

@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 
 namespace NovawerksApp
 {
@@ -139,6 +141,11 @@ namespace NovawerksApp
             NavigationService.Navigate(new NWAS());
             HighlightCurrentPage("NWASPageMenuItem");
         }
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SettingsPage());
+            HighlightCurrentPage("SettingsPageMenuItem");
+        }
 
         // Highlight the current page in the menu
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
@@ -227,6 +234,20 @@ namespace NovawerksApp
             HoverArea.HorizontalAlignment = HorizontalAlignment.Left;
             HoverArea.VerticalAlignment = VerticalAlignment.Stretch;
             HoverArea.Margin = new Thickness(0, 0, 0, 0);
+        }
+
+        // Handle hyperlink navigation
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            // Open the link in the default web browser
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = e.Uri.ToString(),
+                UseShellExecute = true
+            });
+
+            // Mark the event as handled
+            e.Handled = true;
         }
     }
 }

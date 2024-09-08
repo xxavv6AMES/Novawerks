@@ -1,0 +1,59 @@
+<Page x:Class="NovawerksApp.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="SettingsPage"
+      Background="#000000"> <!-- AMOLED Black -->
+
+    <Grid Margin="20">
+        <!-- Account Section -->
+        <StackPanel VerticalAlignment="Top">
+            <!-- Account Settings -->
+            <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Account Settings" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" /> <!-- Orange Accent -->
+
+                    <TextBlock Text="Username" Foreground="#FFA500" /> <!-- Orange Accent -->
+                    <TextBox x:Name="UsernameTextBox" Margin="0,5,0,15" Background="#333" Foreground="#FFF"/>
+
+                    <TextBlock Text="Email" Foreground="#FFA500" /> <!-- Orange Accent -->
+                    <TextBox x:Name="EmailTextBox" Margin="0,5,0,15" Background="#333" Foreground="#FFF"/>
+
+                    <Button Content="Update Account" Click="UpdateAccount_Click" Background="#FFA500" Foreground="#000" Width="150" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- App Settings -->
+            <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="App Settings" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" />
+
+                    <TextBlock Text="Theme" Foreground="#FFA500" />
+                    <ComboBox x:Name="ThemeComboBox" Margin="0,5,0,15" Background="#333" Foreground="#FFF">
+                        <ComboBoxItem Content="Light"/>
+                        <ComboBoxItem Content="Dark"/>
+                    </ComboBox>
+
+                    <Button Content="Apply Settings" Click="ApplySettings_Click" Background="#FFA500" Foreground="#000" Width="150" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Updates Section -->
+            <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Updates" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" />
+
+                    <TextBlock Text="Current Version: 0.6.0-EA" Foreground="#FFF" Margin="0,5,0,10" /> <!-- Displaying Current Version -->
+                    
+                    <Button Content="Check for Updates" Background="#FFA500" Foreground="#000" Width="150" HorizontalAlignment="Left" Click="CheckForUpdates_Click"/>
+                    
+                    <Button Content="Download and Install Update" Background="#FFA500" Foreground="#000" Width="200" HorizontalAlignment="Left" Click="DownloadAndInstallUpdate_Click" Margin="0,10,0,0"/>
+                    
+                    <TextBlock Text="View Changelog" Foreground="#FFA500" Cursor="Hand" TextDecorations="Underline" MouseDown="OpenChangelog_Click" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>
