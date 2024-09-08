@@ -564,3 +564,5 @@ C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\UpdatePromptWindo
 C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\SettingsPage.g.cs
 C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\UpdateProgressWindow.g.cs
 C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\UpdatePromptWindow.g.cs
+C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\LoadingWindow.baml
+C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\LoadingWindow.g.cs
