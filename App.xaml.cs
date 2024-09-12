@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using Supabase;
 
 namespace NovawerksApp
 {
@@ -9,29 +10,55 @@ namespace NovawerksApp
     {
         private LoadingWindow _loadingWindow;
 
-        private async void Application_Startup(object sender, StartupEventArgs e)
+        // Supabase client instance
+        public static Supabase.Client SupabaseClient { get; private set; }
+
+        protected override void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
+
+            // Initialize Supabase client
+            SupabaseClient = new Supabase.Client(
+                "https://dzgmlvzoontthmevxxpu.supabase.co",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6Z21sdnpvb250dGhtZXZ4eHB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjYxMDY3MzksImV4cCI6MjA0MTY4MjczOX0.oajSiFAZjly-h8sbEDzOiNkPgmb2XVlpDS9fMUMQXZs"
+            );
+
+            // Show loading window
             _loadingWindow = new LoadingWindow();
             _loadingWindow.Show();
 
-            try
+            // Check internet connectivity and load main window
+            Task.Run(async () =>
             {
-                if (!await CheckInternetConnectivity())
+                try
                 {
-                    MessageBox.Show("No internet connection detected. The application requires an internet connection to function properly.");
-                    Shutdown(); // Exit the application
-                    return;
-                }
+                    if (!await CheckInternetConnectivity())
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show("No internet connection detected. The application requires an internet connection to function properly.");
+                            Shutdown(); // Exit the application
+                        });
+                        return;
+                    }
 
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Loaded += MainWindow_Loaded; // Close the loading window when the main window is fully loaded
-                mainWindow.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error during startup: {ex.Message}");
-                Shutdown(); // Exit the application on error
-            }
+                    // Run the code on the UI thread to update UI components
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Loaded += MainWindow_Loaded; // Close the loading window when the main window is fully loaded
+                        mainWindow.Show();
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        MessageBox.Show($"Error during startup: {ex.Message}");
+                        Shutdown(); // Exit the application on error
+                    });
+                }
+            });
         }
 
         private async Task<bool> CheckInternetConnectivity()

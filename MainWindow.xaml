@@ -2,10 +2,52 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Novawerks" Height="800" Width="1400"
-        Background="#000000" Foreground="#FFFFFF">
+        Background="#000000" Foreground="#FFFFFF"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="False"
+        WindowStyle="None"
+        ResizeMode="CanMinimize"
+        MinWidth="1400"
+        MinHeight="800">
 
     <Grid>
-        <!-- Frame for Page Navigation -->
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" />
+        <!-- Custom Window Border -->
+        <Border BorderBrush="#000000" BorderThickness="1" Background="Transparent" Padding="0">
+            <Grid>
+                <!-- Title Bar with Buttons -->
+                <Border Background="#1F1F1F" Height="40" VerticalAlignment="Top"
+                        MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Minimize Button -->
+                        <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5">
+                            <TextBlock Text="-" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
+                        </Button>
+
+                        <!-- Title -->
+                        <TextBlock Grid.Column="1" Text="Novawerks" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" FontWeight="Bold"/>
+
+                        <!-- Maximize/Restore Button -->
+                        <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="MaximizeRestoreButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                            <TextBlock Text="[]" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
+                        </Button>
+
+                        <!-- Close Button -->
+                        <Button Grid.Column="3" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                            <TextBlock Text="X" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <!-- Frame for Page Navigation -->
+                <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="0,40,0,0"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

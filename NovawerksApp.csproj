@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
     <None Update="Images/novawerks1.ico">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -19,6 +20,7 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Squirrel.Windows" Version="2.0.1" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

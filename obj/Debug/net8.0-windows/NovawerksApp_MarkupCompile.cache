@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\mxavn\NovawerksApp\App.xaml
-9-1923958431
+11-534451446
 3-550295789
-12343118663
-234-1836437136
-ForumPage.xaml;LoadingWindow.xaml;MainPage.xaml;MainWindow.xaml;NWAS.xaml;SettingsPage.xaml;TutorialOverlay.xaml;UpdateProgressWindow.xaml;UpdatePromptWindow.xaml;
+14-1497867198
+257-1694852697
+AccountPage.xaml;ForumPage.xaml;LoadingWindow.xaml;MainPage.xaml;MainWindow.xaml;NWAS.xaml;SettingsPage.xaml;SignUpPage.xaml;TutorialOverlay.xaml;UpdateProgressWindow.xaml;UpdatePromptWindow.xaml;
 
-False
+True
 

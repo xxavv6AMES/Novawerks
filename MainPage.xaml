@@ -67,10 +67,13 @@
         <Grid Grid.Row="1" Grid.Column="1" Margin="20">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel>
+                    <!-- Sign Up/Account Button -->
+                    <Button x:Name="SignUpButton" Content="Sign Up" Width="150" Margin="0,0,0,20" Click="SignUpButton_Click" HorizontalAlignment="Right"/>
+                    
                     <!-- Intro Text -->
                     <TextBlock Text="Welcome to the Novawerks Desktop Experience (NDE)" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive.
-" FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive."
+                               FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
 
                     <!-- Latest App Update Information -->
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
@@ -103,15 +106,12 @@
             </ScrollViewer>
 
             <!-- Frame for Page Navigation -->
-            <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"/>
+            <Frame Name="ContentFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
 
         <!-- Footer -->
-        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Background="#1F1F1F" Height="40" VerticalAlignment="Bottom">
-            <TextBlock Text="© 2024 xxavv6AMES" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+        <Border Background="#1F1F1F" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30" VerticalAlignment="Bottom">
+            <TextBlock Text="Novawerks Desktop Experience © 2024 Novawerks &amp; xxavv6AMES" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#CCCCCC" FontFamily="{StaticResource xGFF}"/>
         </Border>
-
-        <!-- Hover Detection Area (Invisible) -->
-        <Border x:Name="HoverArea" Background="Transparent" Width="13" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
     </Grid>
 </Page>

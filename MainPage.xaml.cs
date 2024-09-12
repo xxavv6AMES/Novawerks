@@ -15,12 +15,15 @@ namespace NovawerksApp
         private const string ActiveTextColor = "#8C52FF"; // Color for active page
         private const string InactiveTextColor = "#CCCCCC"; // Color for inactive pages
 
+        private bool isLoggedIn = false; // Simulated login status
+
         public MainPage()
         {
             InitializeComponent();
             RegisterCommandBindings();
             SetupHoverArea();
             HighlightCurrentPage();
+            UpdateSignUpButton();
         }
 
         private void RegisterCommandBindings()
@@ -67,7 +70,6 @@ namespace NovawerksApp
 
         private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Toggle visibility of the Help Sidebar
             ToggleHelpSidebar();
         }
 
@@ -104,23 +106,22 @@ namespace NovawerksApp
 
         private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Toggle visibility of the Help Sidebar
             ToggleHelpSidebar();
         }
 
-        // Navigation to NWAS Addon Store Page
-        private void AddonStoreMenuItem_Click(object sender, RoutedEventArgs e)
+        // Sign-Up Button Event Handler
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
-            NWAS addonStorePage = new NWAS();
-            NavigationService.Navigate(addonStorePage);
-            HighlightCurrentPage("NWASPageMenuItem");
-        }
-
-        private void ForumMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            ForumPage forumPage = new ForumPage();
-            NavigationService.Navigate(forumPage);
-            HighlightCurrentPage("ForumPageMenuItem");
+            if (isLoggedIn)
+            {
+                // Navigate to account page or show account details
+                ContentFrame.Navigate(new AccountPage()); // Replace with your actual account page
+            }
+            else
+            {
+                // Handle sign-up logic
+                ContentFrame.Navigate(new SignUpPage()); // Replace with your actual sign-up page
+            }
         }
 
         // Sidebar Button Click Event Handlers
@@ -138,9 +139,10 @@ namespace NovawerksApp
 
         private void NWASPageButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new NWAS());
+            NavigationService.Navigate(new NWAS()); // Ensure NWASPage is correctly named
             HighlightCurrentPage("NWASPageMenuItem");
         }
+
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new SettingsPage());
@@ -209,7 +211,7 @@ namespace NovawerksApp
                 var slideOutAnimation = new ThicknessAnimation
                 {
                     From = MainFrame.Margin,
-                    To = new Thickness(MainFrame.Margin.Right - 300, 0, 0, 0),
+                    To = new Thickness(MainFrame.Margin.Left - 300, 0, 0, 0),
                     Duration = new Duration(TimeSpan.FromSeconds(0.5))
                 };
                 slideOutAnimation.Completed += (s, e) => HelpSidebar.Visibility = Visibility.Collapsed;
@@ -226,9 +228,8 @@ namespace NovawerksApp
         // Setup hover area for detecting mouse movement
         private void SetupHoverArea()
         {
-            // Add MouseEnter event to the hover area
             HoverArea.MouseEnter += (s, e) => ToggleLeftMenu();
-            
+
             // Ensure the HoverArea is positioned correctly
             HoverArea.Width = HoverAreaWidth;
             HoverArea.HorizontalAlignment = HorizontalAlignment.Left;
@@ -248,6 +249,19 @@ namespace NovawerksApp
 
             // Mark the event as handled
             e.Handled = true;
+        }
+
+        private void UpdateSignUpButton()
+        {
+            // Check if user is logged in and update button text
+            if (isLoggedIn)
+            {
+                SignUpButton.Content = "My Account";
+            }
+            else
+            {
+                SignUpButton.Content = "Sign Up";
+            }
         }
     }
 }

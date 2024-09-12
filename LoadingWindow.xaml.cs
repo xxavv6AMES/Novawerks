@@ -18,7 +18,7 @@ namespace NovawerksApp
         {
             _autoCloseTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(3) // Set the timer to 3 seconds
+                Interval = TimeSpan.FromSeconds(2) // Set the timer to 3 seconds
             };
             _autoCloseTimer.Tick += AutoCloseTimer_Tick;
             _autoCloseTimer.Start();

@@ -10,67 +10,67 @@
     <Grid>
         <!-- Define a grid with two columns: one for the sidebar and one for the content -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/> <!-- Sidebar Width -->
+            <ColumnDefinition Width="240"/> <!-- Sidebar Width -->
             <ColumnDefinition Width="*"/>   <!-- Content Width -->
         </Grid.ColumnDefinitions>
 
         <!-- Left Menu -->
-        <Border x:Name="LeftMenu" Background="#2F2F2F" Grid.Column="0" VerticalAlignment="Stretch" Visibility="Visible">
-            <DockPanel LastChildFill="True">
-                <StackPanel DockPanel.Dock="Top">
-                    <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                </StackPanel>
-            </DockPanel>
+        <Border x:Name="LeftMenu" Background="#1E1E1E" Grid.Column="0" VerticalAlignment="Stretch" Visibility="Visible" CornerRadius="10" Margin="10">
+            <StackPanel>
+                <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}" />
+                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}" />
+                <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}" />
+            </StackPanel>
         </Border>
 
-        <!-- Main Content Area -->
-        <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="20">
-            <!-- Account Section -->
-            <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
-                <StackPanel>
-                    <TextBlock Text="Account Settings" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" /> <!-- Orange Accent -->
+        <!-- Main Content Area with ScrollViewer -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Margin="20" PanningMode="VerticalFirst">
+            <StackPanel>
+                <!-- Account Section -->
+                <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Account Settings" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/> <!-- Orange Accent -->
 
-                    <TextBlock Text="Username" Foreground="#FFA500" /> <!-- Orange Accent -->
-                    <TextBox x:Name="UsernameTextBox" Margin="0,5,0,15" Background="#333" Foreground="#FFF"/>
+                        <TextBlock Text="Username" Foreground="#FFA500" FontWeight="Medium"/> <!-- Orange Accent -->
+                        <TextBox x:Name="UsernameTextBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1" />
 
-                    <TextBlock Text="Email" Foreground="#FFA500" /> <!-- Orange Accent -->
-                    <TextBox x:Name="EmailTextBox" Margin="0,5,0,15" Background="#333" Foreground="#FFF"/>
+                        <TextBlock Text="Email" Foreground="#FFA500" FontWeight="Medium"/> <!-- Orange Accent -->
+                        <TextBox x:Name="EmailTextBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1" />
 
-                    <Button Content="Update Account" Click="UpdateAccount_Click" Background="#FFA500" Foreground="#000" Width="150" HorizontalAlignment="Left"/>
-                </StackPanel>
-            </Border>
+                        <Button Content="Update Account" Click="UpdateAccount_Click" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" />
+                    </StackPanel>
+                </Border>
 
-            <!-- App Settings -->
-            <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
-                <StackPanel>
-                    <TextBlock Text="App Settings" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" />
+                <!-- App Settings -->
+                <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="App Settings" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/>
 
-                    <TextBlock Text="Theme" Foreground="#FFA500" />
-                    <ComboBox x:Name="ThemeComboBox" Margin="0,5,0,15" Background="#333" Foreground="#FFF">
-                        <ComboBoxItem Content="Light"/>
-                        <ComboBoxItem Content="Dark"/>
-                    </ComboBox>
+                        <TextBlock Text="Theme" Foreground="#FFA500" FontWeight="Medium"/>
+                        <ComboBox x:Name="ThemeComboBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1">
+                            <ComboBoxItem Content="Light" />
+                            <ComboBoxItem Content="Dark" />
+                        </ComboBox>
 
-                    <Button Content="Apply Settings" Click="ApplySettings_Click" Background="#FFA500" Foreground="#000" Width="150" HorizontalAlignment="Left"/>
-                </StackPanel>
-            </Border>
+                        <Button Content="Apply Settings" Click="ApplySettings_Click" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" />
+                    </StackPanel>
+                </Border>
 
-            <!-- Updates Section -->
-            <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
-                <StackPanel>
-                    <TextBlock Text="Updates" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" />
+                <!-- Updates Section -->
+                <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Updates" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/>
 
-                    <TextBlock Text="Current Version: 0.6.0-EA" Foreground="#FFF" Margin="0,5,0,10" /> <!-- Displaying Current Version -->
-                    
-                    <Button Content="Check for Updates" Background="#FFA500" Foreground="#000" Width="150" HorizontalAlignment="Left" Click="CheckForUpdates_Click"/>
-                    
-                    <Button Content="Download and Install Update" Background="#FFA500" Foreground="#000" Width="200" HorizontalAlignment="Left" Click="DownloadAndInstallUpdate_Click" Margin="0,10,0,0"/>
-                    
-                    <TextBlock Text="View Changelog" Foreground="#FFA500" Cursor="Hand" TextDecorations="Underline" MouseDown="OpenChangelog_Click" />
-                </StackPanel>
-            </Border>
-        </StackPanel>
+                        <TextBlock Text="Current Version: 0.6.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" /> <!-- Displaying Current Version -->
+
+                        <Button Content="Check for Updates" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" Click="CheckForUpdates_Click" />
+
+                        <Button Content="Download and Install Update" Background="#FFA500" Foreground="#000" Width="220" HorizontalAlignment="Left" Height="40" Click="DownloadAndInstallUpdate_Click" Margin="0,15,0,0" />
+
+                        <TextBlock Text="View Changelog" Foreground="#FFA500" Cursor="Hand" TextDecorations="Underline" MouseDown="OpenChangelog_Click" Margin="0,15,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

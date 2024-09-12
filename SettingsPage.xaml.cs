@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Supabase;
 
 namespace NovawerksApp
 {
