@@ -8,7 +8,7 @@
     <Grid>
         <!-- Define Columns and Rows for Layout -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/> <!-- For Left Menu -->
+            <ColumnDefinition Width="250"/>    <!-- For Left Menu, always visible -->
             <ColumnDefinition Width="*" />    <!-- For Main Content -->
             <ColumnDefinition Width="300"/>   <!-- For Help Sidebar -->
         </Grid.ColumnDefinitions>
@@ -37,8 +37,8 @@
             </MenuItem>
         </Menu>
 
-        <!-- Left Menu (Initially Collapsed) -->
-        <Border x:Name="LeftMenu" Background="#2F2F2F" Width="250" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Visibility="Collapsed">
+        <!-- Left Menu (Always Visible) -->
+        <Border x:Name="LeftMenu" Background="#2F2F2F" Width="250" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch">
             <DockPanel LastChildFill="True">
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
@@ -67,9 +67,6 @@
         <Grid Grid.Row="1" Grid.Column="1" Margin="20">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <!-- Sign Up/Account Button -->
-                    <Button x:Name="SignUpButton" Content="Sign Up" Width="150" Margin="0,0,0,20" Click="SignUpButton_Click" HorizontalAlignment="Right"/>
-                    
                     <!-- Intro Text -->
                     <TextBlock Text="Welcome to the Novawerks Desktop Experience (NDE)" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive."

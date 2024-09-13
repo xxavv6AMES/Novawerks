@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yHVUMrP045g=",
+  "dgSpecHash": "KA6NbxI7Kdc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj",
+  "projectFilePath": "c:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mxavn\\.nuget\\packages\\deltacompressiondotnet\\1.1.0\\deltacompressiondotnet.1.1.0.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\extended.wpf.toolkit\\4.6.1\\extended.wpf.toolkit.4.6.1.nupkg.sha512",

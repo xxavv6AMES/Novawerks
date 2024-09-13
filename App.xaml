@@ -15,7 +15,6 @@
             <Setter Property="FontStretch" Value="Normal"/> <!-- Adjustable width -->
             <Setter Property="FontStyle" Value="Normal"/> <!-- Italic, oblique, etc. -->
         </Style>
-        
-        <local:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter"/>
+
     </Application.Resources>
 </Application>

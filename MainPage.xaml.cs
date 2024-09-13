@@ -14,16 +14,13 @@ namespace NovawerksApp
         private const double HoverAreaWidth = 10; // Width of the hover area
         private const string ActiveTextColor = "#8C52FF"; // Color for active page
         private const string InactiveTextColor = "#CCCCCC"; // Color for inactive pages
-
         private bool isLoggedIn = false; // Simulated login status
 
         public MainPage()
         {
             InitializeComponent();
             RegisterCommandBindings();
-            SetupHoverArea();
             HighlightCurrentPage();
-            UpdateSignUpButton();
         }
 
         private void RegisterCommandBindings()
@@ -37,119 +34,32 @@ namespace NovawerksApp
             CommandBindings.Add(new CommandBinding(ApplicationCommands.Help, HelpCommand_Executed));
         }
 
-        // Command Handlers
-        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            OpenMenuItem_Click(sender, e);
-        }
+        #region Command Handlers
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e) => OpenMenuItem_Click(sender, e);
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e) => SaveMenuItem_Click(sender, e);
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e) => ExitMenuItem_Click(sender, e);
+        private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e) => UndoMenuItem_Click(sender, e);
+        private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e) => RedoMenuItem_Click(sender, e);
+        private void RefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e) => RefreshMenuItem_Click(sender, e);
+        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e) => ToggleHelpSidebar();
+        #endregion
 
-        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            SaveMenuItem_Click(sender, e);
-        }
+        #region Menu Event Handlers
+        private void OpenMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Open clicked!");
+        private void SaveMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Save clicked!");
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+        private void UndoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Undo clicked!");
+        private void RedoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Redo clicked!");
+        private void RefreshMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Refresh clicked!");
+        private void HelpMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("HMIC clicked!");
+        #endregion
 
-        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            ExitMenuItem_Click(sender, e);
-        }
+        private void MainPageButton_Click(object sender, RoutedEventArgs e) => HighlightCurrentPage("MainPageMenuItem");
+        private void ForumPageButton_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new ForumPage());
+        private void NWASPageButton_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new NWAS());
+        private void SettingsButton_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new SettingsPage());
 
-        private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            UndoMenuItem_Click(sender, e);
-        }
-
-        private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            RedoMenuItem_Click(sender, e);
-        }
-
-        private void RefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            RefreshMenuItem_Click(sender, e);
-        }
-
-        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            ToggleHelpSidebar();
-        }
-
-        // Menu Item Event Handlers
-        private void OpenMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Open clicked!");
-        }
-
-        private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Save clicked!");
-        }
-
-        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void UndoMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Undo clicked!");
-        }
-
-        private void RedoMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Redo clicked!");
-        }
-
-        private void RefreshMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Refresh clicked!");
-        }
-
-        private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleHelpSidebar();
-        }
-
-        // Sign-Up Button Event Handler
-        private void SignUpButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (isLoggedIn)
-            {
-                // Navigate to account page or show account details
-                ContentFrame.Navigate(new AccountPage()); // Replace with your actual account page
-            }
-            else
-            {
-                // Handle sign-up logic
-                ContentFrame.Navigate(new SignUpPage()); // Replace with your actual sign-up page
-            }
-        }
-
-        // Sidebar Button Click Event Handlers
-        private void MainPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            // No navigation needed, as this is already the main page
-            HighlightCurrentPage("MainPageMenuItem");
-        }
-
-        private void ForumPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ForumPage());
-            HighlightCurrentPage("ForumPageMenuItem");
-        }
-
-        private void NWASPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new NWAS()); // Ensure NWASPage is correctly named
-            HighlightCurrentPage("NWASPageMenuItem");
-        }
-
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new SettingsPage());
-            HighlightCurrentPage("SettingsPageMenuItem");
-        }
-
-        // Highlight the current page in the menu
+        #region UI Helpers
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
             // Reset all menu items to inactive color
@@ -158,110 +68,48 @@ namespace NovawerksApp
             NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
 
             // Highlight the current page
-            var activeTextBlock = FindName(activePageName) as TextBlock;
-            if (activeTextBlock != null)
+            if (FindName(activePageName) is TextBlock activeTextBlock)
             {
                 activeTextBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ActiveTextColor));
             }
         }
 
-        // Toggle Left Menu with Animation
-        private void ToggleLeftMenu()
-        {
-            if (LeftMenu.Visibility == Visibility.Collapsed)
-            {
-                LeftMenu.Visibility = Visibility.Visible;
-                var slideInAnimation = new ThicknessAnimation
-                {
-                    From = new Thickness(-250, 0, 0, 0),
-                    To = new Thickness(0, 0, 0, 0),
-                    Duration = new Duration(TimeSpan.FromSeconds(0.5))
-                };
-                LeftMenu.BeginAnimation(Border.MarginProperty, slideInAnimation);
-            }
-            else
-            {
-                var slideOutAnimation = new ThicknessAnimation
-                {
-                    From = LeftMenu.Margin,
-                    To = new Thickness(-250, 0, 0, 0),
-                    Duration = new Duration(TimeSpan.FromSeconds(0.5))
-                };
-                slideOutAnimation.Completed += (s, e) => LeftMenu.Visibility = Visibility.Collapsed;
-                LeftMenu.BeginAnimation(Border.MarginProperty, slideOutAnimation);
-            }
-        }
-
-        // Toggle Help Sidebar and adjust MainFrame margin
         private void ToggleHelpSidebar()
         {
             if (HelpSidebar.Visibility == Visibility.Collapsed)
             {
                 HelpSidebar.Visibility = Visibility.Visible;
-                var slideInAnimation = new ThicknessAnimation
+                ContentFrame.BeginAnimation(MarginProperty, new ThicknessAnimation
                 {
-                    From = new Thickness(MainFrame.Margin.Right, 0, -300, 0),
-                    To = new Thickness(MainFrame.Margin.Right + 300, 0, 0, 0),
-                    Duration = new Duration(TimeSpan.FromSeconds(0.5))
-                };
-                MainFrame.BeginAnimation(MarginProperty, slideInAnimation);
+                    From = new Thickness(ContentFrame.Margin.Left, 0, -300, 0),
+                    To = new Thickness(ContentFrame.Margin.Left + 300, 0, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.5)
+                });
             }
             else
             {
                 var slideOutAnimation = new ThicknessAnimation
                 {
-                    From = MainFrame.Margin,
-                    To = new Thickness(MainFrame.Margin.Left - 300, 0, 0, 0),
-                    Duration = new Duration(TimeSpan.FromSeconds(0.5))
+                    From = ContentFrame.Margin,
+                    To = new Thickness(ContentFrame.Margin.Left - 300, 0, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.5)
                 };
                 slideOutAnimation.Completed += (s, e) => HelpSidebar.Visibility = Visibility.Collapsed;
-                MainFrame.BeginAnimation(MarginProperty, slideOutAnimation);
+                ContentFrame.BeginAnimation(MarginProperty, slideOutAnimation);
             }
         }
 
-        // Close Help Sidebar Button Click Event Handler
-        private void CloseHelpSidebar_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleHelpSidebar();
-        }
+        private void CloseHelpSidebar_Click(object sender, RoutedEventArgs e) => ToggleHelpSidebar();
+        #endregion
 
-        // Setup hover area for detecting mouse movement
-        private void SetupHoverArea()
-        {
-            HoverArea.MouseEnter += (s, e) => ToggleLeftMenu();
-
-            // Ensure the HoverArea is positioned correctly
-            HoverArea.Width = HoverAreaWidth;
-            HoverArea.HorizontalAlignment = HorizontalAlignment.Left;
-            HoverArea.VerticalAlignment = VerticalAlignment.Stretch;
-            HoverArea.Margin = new Thickness(0, 0, 0, 0);
-        }
-
-        // Handle hyperlink navigation
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            // Open the link in the default web browser
             Process.Start(new ProcessStartInfo
             {
                 FileName = e.Uri.ToString(),
                 UseShellExecute = true
             });
-
-            // Mark the event as handled
             e.Handled = true;
-        }
-
-        private void UpdateSignUpButton()
-        {
-            // Check if user is logged in and update button text
-            if (isLoggedIn)
-            {
-                SignUpButton.Content = "My Account";
-            }
-            else
-            {
-                SignUpButton.Content = "Sign Up";
-            }
         }
     }
 }
