@@ -61,7 +61,7 @@
                     <StackPanel>
                         <TextBlock Text="Updates" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/>
 
-                        <TextBlock Text="Current Version: 0.6.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" /> <!-- Displaying Current Version -->
+                        <TextBlock Text="Current Version: 0.7.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" /> <!-- Displaying Current Version -->
 
                         <Button Content="Check for Updates" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" Click="CheckForUpdates_Click" />
 

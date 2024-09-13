@@ -1,3 +1,4 @@
+using Auth0.OidcClient;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -6,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using System.Threading.Tasks;
 
 namespace NovawerksApp
 {
@@ -14,15 +16,84 @@ namespace NovawerksApp
         private const double HoverAreaWidth = 10; // Width of the hover area
         private const string ActiveTextColor = "#8C52FF"; // Color for active page
         private const string InactiveTextColor = "#CCCCCC"; // Color for inactive pages
-        private bool isLoggedIn = false; // Simulated login status
+
+        private Auth0Client auth0Client; // Auth0 client instance
+        private bool isLoggedIn = false; // User login status
 
         public MainPage()
         {
             InitializeComponent();
             RegisterCommandBindings();
             HighlightCurrentPage();
+            InitializeAuth0(); // Initialize Auth0 client
         }
 
+private void InitializeAuth0()
+{
+auth0Client = new Auth0Client(new Auth0ClientOptions
+{
+    Domain = "dev-oex5fnsu3gh2tvi2.us.auth0.com", // Ensure this is the correct domain
+    ClientId = "jgZVUpNEuYyGGUeDuxEKRqfBHwsYtkOD", // Ensure this is the correct Client ID
+    Scope = "openid profile email",
+    RedirectUri = "http://localhost:5000/callback" // Ensure this URI is registered in the Auth0 dashboard
+    // Enable detailed logging
+    Logger = new System.ConsoleLogger(),
+});
+
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        var loginResult = await auth0Client.LoginAsync();
+
+        if (loginResult.IsError)
+        {
+            MessageBox.Show($"Login failed: {loginResult.Error}");
+        }
+        else
+        {
+            isLoggedIn = true;
+            MessageBox.Show($"Welcome {loginResult.User.Identity.Name}");
+
+            // You can store other user info like email
+            var email = loginResult.User.FindFirst(c => c.Type == "email")?.Value;
+            // Other user claims can be accessed similarly
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
+    }
+}
+
+
+        private async void LogoutButton_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        await auth0Client.LogoutAsync();
+        isLoggedIn = false;
+        MessageBox.Show("You're logged out.");
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
+    }
+}
+
+private void UpdateLoginUI()
+{
+    if (isLoggedIn)
+    {
+        LoginButton.Visibility = Visibility.Collapsed;
+        LogoutButton.Visibility = Visibility.Visible;
+    }
+    else
+    {
+        LoginButton.Visibility = Visibility.Visible;
+        LogoutButton.Visibility = Visibility.Collapsed;
+    }
+}
         private void RegisterCommandBindings()
         {
             CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, OpenCommand_Executed));

@@ -16,7 +16,7 @@ namespace NovawerksApp
     public partial class SettingsPage : Page
     {
         private const string SettingsFilePath = "settings.json";
-        private const string CurrentVersion = "0.6.0-EA"; // Current version of the app
+        private const string CurrentVersion = "0.7.0-EA"; // Current version of the app
         private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; // Replace with your actual repository URL
 
         // Define colors for highlighting
@@ -201,7 +201,7 @@ namespace NovawerksApp
 
         private void OpenChangelog_Click(object sender, RoutedEventArgs e)
         {
-            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.6.0-EA"; // Replace with actual URL
+            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.7.0-EA"; // Replace with actual URL
 
             Process.Start(new ProcessStartInfo
             {

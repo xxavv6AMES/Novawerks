@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Auth0.OidcClient.WPF" Version="4.0.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
     <None Update="Images/novawerks1.ico">
