@@ -2789,7 +2789,7 @@
           }
         }
       },
-      "System.ServiceModel.Syndication/8.0.0": {
+      "System.ServiceModel.Syndication/9.0.0-rc.1.24431.7": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.ServiceModel.Syndication.dll": {
@@ -2802,7 +2802,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.ServiceProcess.ServiceController/8.0.0": {
@@ -8494,31 +8494,30 @@
         "system.servicemodel.security.nuspec"
       ]
     },
-    "System.ServiceModel.Syndication/8.0.0": {
-      "sha512": "CJxIUwpBkMCPmIx46tFVOt0zpRrYurUHLW6tJBcmyj+MyWpKc6MMcS69B7IdlV/bgtgys073wMIHZX9QOQ1OFA==",
+    "System.ServiceModel.Syndication/9.0.0-rc.1.24431.7": {
+      "sha512": "IS6XS13+3CRmgiGGs0c/pIyO/T9j1Qd5iqHX/OtB3iH9naAZwwmyQm/SHGZsKwIeAwposBfzJvpPWYVU1UzIZg==",
       "type": "package",
-      "path": "system.servicemodel.syndication/8.0.0",
+      "path": "system.servicemodel.syndication/9.0.0-rc.1.24431.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.ServiceModel.Syndication.targets",
         "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.ServiceModel.Syndication.targets",
         "lib/net462/System.ServiceModel.Syndication.dll",
         "lib/net462/System.ServiceModel.Syndication.xml",
-        "lib/net6.0/System.ServiceModel.Syndication.dll",
-        "lib/net6.0/System.ServiceModel.Syndication.xml",
-        "lib/net7.0/System.ServiceModel.Syndication.dll",
-        "lib/net7.0/System.ServiceModel.Syndication.xml",
         "lib/net8.0/System.ServiceModel.Syndication.dll",
         "lib/net8.0/System.ServiceModel.Syndication.xml",
+        "lib/net9.0/System.ServiceModel.Syndication.dll",
+        "lib/net9.0/System.ServiceModel.Syndication.xml",
         "lib/netstandard2.0/System.ServiceModel.Syndication.dll",
         "lib/netstandard2.0/System.ServiceModel.Syndication.xml",
-        "system.servicemodel.syndication.8.0.0.nupkg.sha512",
+        "system.servicemodel.syndication.9.0.0-rc.1.24431.7.nupkg.sha512",
         "system.servicemodel.syndication.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -9384,7 +9383,8 @@
       "Microsoft.Windows.Compatibility >= 8.0.8",
       "Newtonsoft.Json >= 13.0.3",
       "Squirrel.Windows >= 2.0.1",
-      "Supabase >= 1.1.1"
+      "Supabase >= 1.1.1",
+      "System.ServiceModel.Syndication >= 9.0.0-rc.1.24431.7"
     ]
   },
   "packageFolders": {
@@ -9479,6 +9479,10 @@
           "Supabase": {
             "target": "Package",
             "version": "[1.1.1, )"
+          },
+          "System.ServiceModel.Syndication": {
+            "target": "Package",
+            "version": "[9.0.0-rc.1.24431.7, )"
           }
         },
         "imports": [

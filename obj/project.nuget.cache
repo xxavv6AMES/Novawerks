@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/8Y01xT0SgE=",
+  "dgSpecHash": "Tal8i+4h8j0=",
   "success": true,
   "projectFilePath": "C:\\Users\\mxavn\\NovawerksApp\\Novawerks\\NovawerksApp.csproj",
   "expectedPackageFiles": [
@@ -156,7 +156,7 @@
     "C:\\Users\\mxavn\\.nuget\\packages\\system.servicemodel.nettcp\\4.10.0\\system.servicemodel.nettcp.4.10.0.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\system.servicemodel.primitives\\4.10.0\\system.servicemodel.primitives.4.10.0.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\system.servicemodel.security\\4.10.0\\system.servicemodel.security.4.10.0.nupkg.sha512",
-    "C:\\Users\\mxavn\\.nuget\\packages\\system.servicemodel.syndication\\8.0.0\\system.servicemodel.syndication.8.0.0.nupkg.sha512",
+    "C:\\Users\\mxavn\\.nuget\\packages\\system.servicemodel.syndication\\9.0.0-rc.1.24431.7\\system.servicemodel.syndication.9.0.0-rc.1.24431.7.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\system.serviceprocess.servicecontroller\\8.0.0\\system.serviceprocess.servicecontroller.8.0.0.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\system.speech\\8.0.0\\system.speech.8.0.0.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",

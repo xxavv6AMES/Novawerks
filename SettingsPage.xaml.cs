@@ -9,7 +9,17 @@ using Newtonsoft.Json.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Supabase;
+using Auth0.OidcClient;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Navigation;
+using System.Threading.Tasks;
+using System.Net;
+using Microsoft.IdentityModel.Logging;
+using System.Net.Http;
 
 namespace NovawerksApp
 {
@@ -43,6 +53,8 @@ namespace NovawerksApp
                 MessageBox.Show("Dark theme applied!");
             }
         }
+        private void Logout_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Logout Clicked!");
+        
 
         private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
@@ -213,6 +225,22 @@ namespace NovawerksApp
             }
         }
 
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = e.Uri.ToString(),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open link: {ex.Message}");
+            }
+            e.Handled = true;
+        }
         public class UserSettings
         {
             public string Username { get; set; }

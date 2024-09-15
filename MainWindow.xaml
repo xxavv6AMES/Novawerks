@@ -11,77 +11,44 @@
         MinHeight="800">
 
     <Grid>
-        <!-- Custom Window Border -->
-        <Border BorderBrush="#000000" BorderThickness="1" Background="Transparent" Padding="0">
+        <!-- Define two rows, one for the title bar and one for content -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Title bar -->
+            <RowDefinition Height="*" />    <!-- Main content (Frame) -->
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar with Buttons -->
+        <Border Background="#1F1F1F" Height="40" VerticalAlignment="Top" Grid.Row="0"
+                MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
             <Grid>
-                <!-- Title Bar with Buttons -->
-                <Border Background="#1F1F1F" Height="40" VerticalAlignment="Top"
-                        MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                        <!-- Minimize Button -->
-                        <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5">
-                            <TextBlock Text="-" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
-                        </Button>
+                <!-- Minimize Button -->
+                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5">
+                    <TextBlock Text="-" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
+                </Button>
 
-                        <!-- Title -->
-                        <TextBlock Grid.Column="1" Text="Novawerks" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" FontWeight="Bold"/>
+                <!-- Title -->
+                <TextBlock Grid.Column="1" Text="Novawerks" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" FontWeight="Bold"/>
 
-                        <!-- Maximize/Restore Button -->
-                        <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="MaximizeRestoreButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                            <TextBlock Text="[]" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
-                        </Button>
+                <!-- Maximize/Restore Button -->
+                <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="MaximizeRestoreButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                    <TextBlock Text="#" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
+                </Button>
 
-                        <!-- Close Button -->
-                        <Button Grid.Column="3" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                            <TextBlock Text="X" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
-                        </Button>
-                    </Grid>
-                </Border>
-
-                <!-- Menu Bar -->
-                <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" LastChildFill="True" Background="#1F1F1F" Height="30">
-                    <Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
-                        <MenuItem Header="_File">
-                            <MenuItem Header="_Open" InputGestureText="Ctrl+O" Click="OpenMenuItem_Click" Foreground="#B0B0B0"/>
-                            <MenuItem Header="_Save" InputGestureText="Ctrl+S" Click="SaveMenuItem_Click" Foreground="#B0B0B0"/>
-                            <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
-                        </MenuItem>
-                        <MenuItem Header="_Edit">
-                            <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Click="UndoMenuItem_Click" Foreground="#B0B0B0"/>
-                            <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Click="RedoMenuItem_Click" Foreground="#B0B0B0"/>
-                        </MenuItem>
-                        <MenuItem Header="_View">
-                            <MenuItem Header="_Refresh" InputGestureText="F5" Click="RefreshMenuItem_Click" Foreground="#B0B0B0"/>
-                        </MenuItem>
-                        <MenuItem Header="_Help">
-                            <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
-                        </MenuItem>
-                    </Menu>
-
-                    <!-- Right Side (Profile & Login/Logout) -->
-                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
-                        <!-- Profile Picture -->
-                        <Image Source="Images\novawerks1.png" Width="30" Height="30" Margin="0,0,10,0" />
-
-                        <!-- Email Display -->
-                        <TextBlock x:Name="UserEmailTextBlock" Text="Email will be displayed here" Foreground="#E0E0E0" VerticalAlignment="Center" Margin="0,0,10,0" />
-
-                        <!-- Login/Logout Buttons -->
-                        <Button x:Name="LoginButton" Content="Login" Background="#8C52FF" Foreground="White" Width="80" Height="30" Margin="0,0,10,0" Click="LoginButton_Click"/>
-                        <Button x:Name="LogoutButton" Content="Logout" Background="#FF4444" Foreground="White" Width="80" Height="30" Click="LogoutButton_Click" Visibility="Collapsed"/>
-                    </StackPanel>
-                </DockPanel>
-
-                <!-- Main Content Area -->
-                <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="0,40,0,0"/>
+                <!-- Close Button -->
+                <Button Grid.Column="3" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                    <TextBlock Text="X" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
+                </Button>
             </Grid>
         </Border>
+
+        <!-- Frame for Page Navigation -->
+        <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="0"/>
     </Grid>
 </Window>

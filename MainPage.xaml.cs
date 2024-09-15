@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Net;
 using Microsoft.IdentityModel.Logging;
 using System.Net.Http;
+using System.ServiceModel.Syndication;
+using System.Xml;
+using System.Collections.Generic;
 
 namespace NovawerksApp
 {
@@ -58,6 +61,45 @@ namespace NovawerksApp
                 MessageBox.Show($"Auth0 initialization failed: {ex.Message}");
             }
         }
+
+private async void LoginButton_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        if (auth0Client == null)
+        {
+            throw new InvalidOperationException("Auth0 client is not initialized.");
+        }
+
+        var loginResult = await auth0Client.LoginAsync();
+
+        if (loginResult.IsError)
+        {
+            MessageBox.Show($"Login failed: {loginResult.Error}");
+        }
+        else
+        {
+            isLoggedIn = true;
+            var user = loginResult.User;
+            
+            if (user != null)
+            {
+                // Display user info
+                var email = user.FindFirst(c => c.Type == "email")?.Value;
+                MessageBox.Show($"Welcome {user.Identity.Name}\nEmail: {email}");
+
+                // Update UI or other elements with user information
+                // For example, if you have a TextBlock to display the email:
+                UserEmailTextBlock.Text = email;
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
+    }
+    UpdateLoginUI();
+}
 
         private async Task<string> FetchConfigurationAsync(string configUrl)
         {

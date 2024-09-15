@@ -19,6 +19,7 @@
           "Newtonsoft.Json": "13.0.3",
           "squirrel.windows": "2.0.1",
           "Supabase": "1.1.1",
+          "System.ServiceModel.Syndication": "9.0.0-rc.1.24431.7",
           "Microsoft.Web.WebView2.Core": "1.0.2739.15",
           "Microsoft.Web.WebView2.WinForms": "1.0.2739.15",
           "Microsoft.Web.WebView2.Wpf": "1.0.2739.15"
@@ -377,7 +378,7 @@
           "System.ServiceModel.NetTcp": "4.10.0",
           "System.ServiceModel.Primitives": "4.10.0",
           "System.ServiceModel.Security": "4.10.0",
-          "System.ServiceModel.Syndication": "8.0.0",
+          "System.ServiceModel.Syndication": "9.0.0-rc.1.24431.7",
           "System.ServiceProcess.ServiceController": "8.0.0",
           "System.Speech": "8.0.0",
           "System.Text.Encoding.CodePages": "8.0.0",
@@ -1634,11 +1635,11 @@
           }
         }
       },
-      "System.ServiceModel.Syndication/8.0.0": {
+      "System.ServiceModel.Syndication/9.0.0-rc.1.24431.7": {
         "runtime": {
           "lib/net8.0/System.ServiceModel.Syndication.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53103"
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.43107"
           }
         }
       },
@@ -2923,12 +2924,12 @@
       "path": "system.servicemodel.security/4.10.0",
       "hashPath": "system.servicemodel.security.4.10.0.nupkg.sha512"
     },
-    "System.ServiceModel.Syndication/8.0.0": {
+    "System.ServiceModel.Syndication/9.0.0-rc.1.24431.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CJxIUwpBkMCPmIx46tFVOt0zpRrYurUHLW6tJBcmyj+MyWpKc6MMcS69B7IdlV/bgtgys073wMIHZX9QOQ1OFA==",
-      "path": "system.servicemodel.syndication/8.0.0",
-      "hashPath": "system.servicemodel.syndication.8.0.0.nupkg.sha512"
+      "sha512": "sha512-IS6XS13+3CRmgiGGs0c/pIyO/T9j1Qd5iqHX/OtB3iH9naAZwwmyQm/SHGZsKwIeAwposBfzJvpPWYVU1UzIZg==",
+      "path": "system.servicemodel.syndication/9.0.0-rc.1.24431.7",
+      "hashPath": "system.servicemodel.syndication.9.0.0-rc.1.24431.7.nupkg.sha512"
     },
     "System.ServiceProcess.ServiceController/8.0.0": {
       "type": "package",

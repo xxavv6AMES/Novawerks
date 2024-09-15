@@ -8,9 +8,9 @@
     <Grid>
         <!-- Define Columns and Rows for Layout -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>    <!-- For Left Menu, always visible -->
+            <ColumnDefinition Width="230"/>    <!-- For Left Menu, always visible -->
             <ColumnDefinition Width="*" />    <!-- For Main Content -->
-            <ColumnDefinition Width="300"/>   <!-- For Help Sidebar -->
+            <ColumnDefinition Width="200"/>   <!-- For Help Sidebar -->
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>    <!-- For Menu -->
@@ -18,13 +18,48 @@
             <RowDefinition Height="Auto"/>    <!-- For Footer -->
         </Grid.RowDefinitions>
 
+        <!-- Menu Bar -->
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="True" Background="#1F1F1F" Height="30">
+            <Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open" InputGestureText="Ctrl+O" Click="OpenMenuItem_Click" Foreground="#B0B0B0"/>
+                    <MenuItem Header="_Save" InputGestureText="Ctrl+S" Click="SaveMenuItem_Click" Foreground="#B0B0B0"/>
+                    <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Click="UndoMenuItem_Click" Foreground="#B0B0B0"/>
+                    <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Click="RedoMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="_Refresh" InputGestureText="F5" Click="RefreshMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+            </Menu>
+
+            <!-- Right Side (Profile & Login/Logout) -->
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
+                <!-- Profile Picture -->
+                <Image Source="Images\novawerks1.png" Width="30" Height="30" Margin="0,0,10,0" />
+
+                <!-- Email Display -->
+                <TextBlock x:Name="UserEmailTextBlock" Text="user@example.com" Foreground="#E0E0E0" VerticalAlignment="Center" Margin="0,0,10,0" />
+
+
+                <!-- Login/Logout Buttons -->
+                <Button x:Name="LoginButton" Content="Login" Background="#8C52FF" Foreground="White" Width="80" Height="30" Margin="0,0,10,0" Click="LoginButton_Click"/>
+                <Button x:Name="LogoutButton" Content="Logout" Background="#FF4444" Foreground="White" Width="80" Height="30" Click="LogoutButton_Click" Visibility="Collapsed"/>
+            </StackPanel>
+        </DockPanel>
+
         <!-- Left Menu (Always Visible) -->
-        <Border x:Name="LeftMenu" Background="#2F2F2F" Width="250" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch">
+        <Border x:Name="LeftMenu" Background="#2F2F2F" Width="230" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch">
             <DockPanel LastChildFill="True">
                 <StackPanel DockPanel.Dock="Top">
-                    <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="MainPageMenuItem" Text="Home" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="ForumPageMenuItem" Text="Forums" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="NWASPageMenuItem" Text="NW Addon Store" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
                 </StackPanel>
 
                 <!-- Settings Button -->
@@ -83,9 +118,8 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <!-- Frame for Page Navigation -->
-            <Frame Name="ContentFrame" NavigationUIVisibility="Hidden"/>
-        </Grid>
+    <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+ </Grid>
 
         <!-- Footer -->
         <Border Background="#1F1F1F" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30" VerticalAlignment="Bottom">
