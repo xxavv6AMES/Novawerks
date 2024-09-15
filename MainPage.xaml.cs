@@ -8,6 +8,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Threading.Tasks;
+using System.Net;
+using Microsoft.IdentityModel.Logging;
+using System.Net.Http;
 
 namespace NovawerksApp
 {
@@ -20,80 +23,89 @@ namespace NovawerksApp
         private Auth0Client auth0Client; // Auth0 client instance
         private bool isLoggedIn = false; // User login status
 
+        // OpenID configuration details
+        private const string Issuer = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/";
+        private const string AuthorizationEndpoint = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/authorize";
+        private const string TokenEndpoint = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/oauth/token";
+        private const string UserinfoEndpoint = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/userinfo";
+
         public MainPage()
         {
             InitializeComponent();
+            IdentityModelEventSource.ShowPII = true;
             RegisterCommandBindings();
             HighlightCurrentPage();
             InitializeAuth0(); // Initialize Auth0 client
         }
 
-private void InitializeAuth0()
-{
-auth0Client = new Auth0Client(new Auth0ClientOptions
-{
-    Domain = "dev-oex5fnsu3gh2tvi2.us.auth0.com", // Ensure this is the correct domain
-    ClientId = "jgZVUpNEuYyGGUeDuxEKRqfBHwsYtkOD", // Ensure this is the correct Client ID
-    Scope = "openid profile email",
-    RedirectUri = "http://localhost:5000/callback" // Ensure this URI is registered in the Auth0 dashboard
-    // Enable detailed logging
-    Logger = new System.ConsoleLogger(),
-});
-
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
-{
-    try
-    {
-        var loginResult = await auth0Client.LoginAsync();
-
-        if (loginResult.IsError)
+        private void InitializeAuth0()
         {
-            MessageBox.Show($"Login failed: {loginResult.Error}");
+            // Set TLS 1.2 security protocol
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            try
+            {
+                auth0Client = new Auth0Client(new Auth0ClientOptions
+                {
+                    Domain = "dev-oex5fnsu3gh2tvi2.us.auth0.com",  // Double check the Auth0 domain
+                    ClientId = "jgZVUpNEuYyGGUeDuxEKRqfBHwsYtkOD",
+                    Scope = "openid profile email",
+                    RedirectUri = "http://localhost:5000/",  // Ensure this matches Auth0 settings
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Auth0 initialization failed: {ex.Message}");
+            }
         }
-        else
+
+        private async Task<string> FetchConfigurationAsync(string configUrl)
         {
-            isLoggedIn = true;
-            MessageBox.Show($"Welcome {loginResult.User.Identity.Name}");
-
-            // You can store other user info like email
-            var email = loginResult.User.FindFirst(c => c.Type == "email")?.Value;
-            // Other user claims can be accessed similarly
+            using (HttpClient client = new HttpClient())
+            {
+                client.Timeout = TimeSpan.FromSeconds(10); // Increase timeout if necessary
+                try
+                {
+                    var response = await client.GetStringAsync(configUrl);
+                    return response;
+                }
+                catch (HttpRequestException ex)
+                {
+                    Debug.WriteLine($"Request failed: {ex.Message}");
+                    return null;
+                }
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
-    }
-}
-
 
         private async void LogoutButton_Click(object sender, RoutedEventArgs e)
-{
-    try
-    {
-        await auth0Client.LogoutAsync();
-        isLoggedIn = false;
-        MessageBox.Show("You're logged out.");
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
-    }
-}
+        {
+            try
+            {
+                if (auth0Client == null)
+                {
+                    throw new InvalidOperationException("Auth0 client is not initialized.");
+                }
 
-private void UpdateLoginUI()
-{
-    if (isLoggedIn)
-    {
-        LoginButton.Visibility = Visibility.Collapsed;
-        LogoutButton.Visibility = Visibility.Visible;
-    }
-    else
-    {
-        LoginButton.Visibility = Visibility.Visible;
-        LogoutButton.Visibility = Visibility.Collapsed;
-    }
-}
+                await auth0Client.LogoutAsync();
+                isLoggedIn = false;
+                MessageBox.Show("You're logged out.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
+            }
+            UpdateLoginUI();
+        }
+
+        private void UpdateLoginUI()
+        {
+            if (LoginButton != null && LogoutButton != null)
+            {
+                LoginButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+                LogoutButton.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
         private void RegisterCommandBindings()
         {
             CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, OpenCommand_Executed));
@@ -122,7 +134,7 @@ private void UpdateLoginUI()
         private void UndoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Undo clicked!");
         private void RedoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Redo clicked!");
         private void RefreshMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Refresh clicked!");
-        private void HelpMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("HMIC clicked!");
+        private void HelpMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Help clicked!");
         #endregion
 
         private void MainPageButton_Click(object sender, RoutedEventArgs e) => HighlightCurrentPage("MainPageMenuItem");
@@ -134,9 +146,9 @@ private void UpdateLoginUI()
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
             // Reset all menu items to inactive color
-            MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
-            ForumPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
-            NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
+            if (MainPageMenuItem != null) MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
+            if (ForumPageMenuItem != null) ForumPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
+            if (NWASPageMenuItem != null) NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
 
             // Highlight the current page
             if (FindName(activePageName) is TextBlock activeTextBlock)
@@ -147,26 +159,29 @@ private void UpdateLoginUI()
 
         private void ToggleHelpSidebar()
         {
-            if (HelpSidebar.Visibility == Visibility.Collapsed)
+            if (HelpSidebar != null && ContentFrame != null)
             {
-                HelpSidebar.Visibility = Visibility.Visible;
-                ContentFrame.BeginAnimation(MarginProperty, new ThicknessAnimation
+                if (HelpSidebar.Visibility == Visibility.Collapsed)
                 {
-                    From = new Thickness(ContentFrame.Margin.Left, 0, -300, 0),
-                    To = new Thickness(ContentFrame.Margin.Left + 300, 0, 0, 0),
-                    Duration = TimeSpan.FromSeconds(0.5)
-                });
-            }
-            else
-            {
-                var slideOutAnimation = new ThicknessAnimation
+                    HelpSidebar.Visibility = Visibility.Visible;
+                    ContentFrame.BeginAnimation(MarginProperty, new ThicknessAnimation
+                    {
+                        From = new Thickness(ContentFrame.Margin.Left, 0, -300, 0),
+                        To = new Thickness(ContentFrame.Margin.Left + 300, 0, 0, 0),
+                        Duration = TimeSpan.FromSeconds(0.5)
+                    });
+                }
+                else
                 {
-                    From = ContentFrame.Margin,
-                    To = new Thickness(ContentFrame.Margin.Left - 300, 0, 0, 0),
-                    Duration = TimeSpan.FromSeconds(0.5)
-                };
-                slideOutAnimation.Completed += (s, e) => HelpSidebar.Visibility = Visibility.Collapsed;
-                ContentFrame.BeginAnimation(MarginProperty, slideOutAnimation);
+                    var slideOutAnimation = new ThicknessAnimation
+                    {
+                        From = ContentFrame.Margin,
+                        To = new Thickness(ContentFrame.Margin.Left - 300, 0, 0, 0),
+                        Duration = TimeSpan.FromSeconds(0.5)
+                    };
+                    slideOutAnimation.Completed += (s, e) => HelpSidebar.Visibility = Visibility.Collapsed;
+                    ContentFrame.BeginAnimation(MarginProperty, slideOutAnimation);
+                }
             }
         }
 
@@ -175,12 +190,20 @@ private void UpdateLoginUI()
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = e.Uri.ToString(),
-                UseShellExecute = true
-            });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = e.Uri.ToString(),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open link: {ex.Message}");
+            }
             e.Handled = true;
         }
     }
 }
+

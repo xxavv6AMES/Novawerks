@@ -45,7 +45,41 @@
                     </Grid>
                 </Border>
 
-                <!-- Frame for Page Navigation -->
+                <!-- Menu Bar -->
+                <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" LastChildFill="True" Background="#1F1F1F" Height="30">
+                    <Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
+                        <MenuItem Header="_File">
+                            <MenuItem Header="_Open" InputGestureText="Ctrl+O" Click="OpenMenuItem_Click" Foreground="#B0B0B0"/>
+                            <MenuItem Header="_Save" InputGestureText="Ctrl+S" Click="SaveMenuItem_Click" Foreground="#B0B0B0"/>
+                            <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
+                        </MenuItem>
+                        <MenuItem Header="_Edit">
+                            <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Click="UndoMenuItem_Click" Foreground="#B0B0B0"/>
+                            <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Click="RedoMenuItem_Click" Foreground="#B0B0B0"/>
+                        </MenuItem>
+                        <MenuItem Header="_View">
+                            <MenuItem Header="_Refresh" InputGestureText="F5" Click="RefreshMenuItem_Click" Foreground="#B0B0B0"/>
+                        </MenuItem>
+                        <MenuItem Header="_Help">
+                            <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
+                        </MenuItem>
+                    </Menu>
+
+                    <!-- Right Side (Profile & Login/Logout) -->
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
+                        <!-- Profile Picture -->
+                        <Image Source="Images\novawerks1.png" Width="30" Height="30" Margin="0,0,10,0" />
+
+                        <!-- Email Display -->
+                        <TextBlock x:Name="UserEmailTextBlock" Text="Email will be displayed here" Foreground="#E0E0E0" VerticalAlignment="Center" Margin="0,0,10,0" />
+
+                        <!-- Login/Logout Buttons -->
+                        <Button x:Name="LoginButton" Content="Login" Background="#8C52FF" Foreground="White" Width="80" Height="30" Margin="0,0,10,0" Click="LoginButton_Click"/>
+                        <Button x:Name="LogoutButton" Content="Logout" Background="#FF4444" Foreground="White" Width="80" Height="30" Click="LogoutButton_Click" Visibility="Collapsed"/>
+                    </StackPanel>
+                </DockPanel>
+
+                <!-- Main Content Area -->
                 <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="0,40,0,0"/>
             </Grid>
         </Border>

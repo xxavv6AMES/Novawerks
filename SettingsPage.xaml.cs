@@ -26,38 +26,6 @@ namespace NovawerksApp
         public SettingsPage()
         {
             InitializeComponent();
-            LoadUserSettings();
-        }
-
-        private void LoadUserSettings()
-        {
-            if (File.Exists(SettingsFilePath))
-            {
-                var jsonData = File.ReadAllText(SettingsFilePath);
-                var userSettings = JsonConvert.DeserializeObject<UserSettings>(jsonData);
-
-                if (userSettings != null)
-                {
-                    UsernameTextBox.Text = userSettings.Username ?? string.Empty;
-                    EmailTextBox.Text = userSettings.Email ?? string.Empty;
-                    ThemeComboBox.SelectedIndex = userSettings.Theme == "Dark" ? 1 : 0;
-                }
-            }
-        }
-
-        private void UpdateAccount_Click(object sender, RoutedEventArgs e)
-        {
-            var userSettings = new UserSettings
-            {
-                Username = UsernameTextBox.Text,
-                Email = EmailTextBox.Text,
-                Theme = (ThemeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString()
-            };
-
-            var jsonData = JsonConvert.SerializeObject(userSettings, Formatting.Indented);
-            File.WriteAllText(SettingsFilePath, jsonData);
-
-            MessageBox.Show("Account settings updated successfully.");
         }
 
         private void ApplySettings_Click(object sender, RoutedEventArgs e)
