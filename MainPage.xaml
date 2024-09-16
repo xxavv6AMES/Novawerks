@@ -79,44 +79,62 @@
             </Grid>
         </Border>
 
-        <!-- Content Area with Frame for Navigation -->
-        <Grid Grid.Row="1" Grid.Column="1" Margin="20">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+<!-- Content Area with Frame for Navigation -->
+<Grid Grid.Row="1" Grid.Column="1" Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <StackPanel>
+
+            <!-- Intro Text -->
+            <TextBlock Text="Welcome to the Novawerks Desktop Experience (NDE)" 
+                       FontSize="24" FontWeight="Bold" Margin="0,0,0,20" 
+                       Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+
+            <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive."
+                       FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" 
+                       FontFamily="{StaticResource xGFF}"/>
+
+            <!-- Latest App Update Information -->
+            <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                 <StackPanel>
-                    <!-- Intro Text -->
-                    <TextBlock Text="Welcome to the Novawerks Desktop Experience (NDE)" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive."
-                               FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="Latest Update:" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="v0.7.0-EA" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="The third EarlyAccess build of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website, including the new account system!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock>
+                        <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
+                            <TextBlock Text="Read about this update" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
 
-                    <!-- Latest App Update Information -->
-                    <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
-                        <StackPanel>
-                            <TextBlock Text="Latest Update:" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="v0.7.0-EA" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="The third EarlyAccess build of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website, including the new account system!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock>
-                                <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="Read about this update" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
-                                </Hyperlink>
-                            </TextBlock>
-                        </StackPanel>
-                    </Border>
+            <!-- Latest Blog Post Information -->
+            <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Latest Blog Post" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="Join The WerksClub!" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="The WerksClub is Novawerks' official newsletter. Here's why we think you should join us." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock>
+                        <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/join-club" RequestNavigate="Hyperlink_RequestNavigate">
+                            <TextBlock Text="Read more" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
 
-                    <!-- Placeholder for Latest Post -->
-                    <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
-                        <StackPanel>
-                            <TextBlock Text="Latest Blog Post" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Join The WerksClub!" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="The WerksClub is Novawerks' official newsletter. Here's why we think you should join us." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock>
-                                <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/join-club" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="Read more" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
-                                </Hyperlink>
-                            </TextBlock>
-                        </StackPanel>
+            <!-- Plugin Launcher Section -->
+            <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Addon Launcher" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}" Margin="0,0,0,10"/>
+                    <!-- Active Plugin Square -->
+                    <Border Background="#8C52FF" Padding="50" HorizontalAlignment="Center">
+                        <TextBlock Text="Main App" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
                     </Border>
                 </StackPanel>
-            </ScrollViewer>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
 
     <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
  </Grid>

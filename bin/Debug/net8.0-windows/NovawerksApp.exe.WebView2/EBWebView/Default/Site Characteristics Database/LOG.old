@@ -1,3 +1,7 @@
-2024/09/15-18:26:49.455 4b04 Reusing MANIFEST C:\Users\mxavn\NovawerksApp\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
-2024/09/15-18:26:49.455 4b04 Recovering log #9
-2024/09/15-18:26:49.455 4b04 Reusing old log C:\Users\mxavn\NovawerksApp\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/000009.log 
+2024/09/15-22:54:57.534 c480 Log #9: 75 ops saved to Table #10 OK
+2024/09/15-22:54:57.536 c480 Archiving C:\Users\mxavn\NovawerksApp\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/000009.log: OK
+2024/09/15-22:54:57.536 c480 Table #4: 112 entries OK
+2024/09/15-22:54:57.536 c480 Table #7: 40 entries OK
+2024/09/15-22:54:57.537 c480 Table #10: 75 entries OK
+2024/09/15-22:54:57.540 c480 Archiving C:\Users\mxavn\NovawerksApp\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001: OK
+2024/09/15-22:54:57.546 c480 **** Repaired leveldb C:\Users\mxavn\NovawerksApp\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database; recovered 3 files; 3447 bytes. Some data may have been lost. ****
