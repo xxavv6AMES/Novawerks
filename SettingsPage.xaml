@@ -31,13 +31,21 @@
                     <StackPanel>
                         <TextBlock Text="Account Settings" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/> <!-- Orange Accent -->
 
-                        <TextBlock Text="Username" Foreground="#FFA500" FontWeight="Medium"/> <!-- Orange Accent -->
-                        <TextBox x:Name="UsernameTextBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1" />
+                        <!-- User Profile Information -->
+                        <TextBlock x:Name="UserName" FontSize="20" Margin="10" Foreground="#FFFFFF" />
+                        <TextBlock x:Name="UserEmail" FontSize="16" Margin="10" Foreground="#FFFFFF" />
 
-                        <TextBlock Text="Email" Foreground="#FFA500" FontWeight="Medium"/> <!-- Orange Accent -->
-                        <TextBox x:Name="EmailTextBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1" />
-
-                        <Button Content="Update Account" Click="UpdateAccount_Click" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" />
+                        <!-- Manage Account and Logout -->
+                        <TextBlock Margin="10,20,0,0">
+                            <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Text="Manage Your Account" Foreground="#FFA500" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Margin="10,0,0,0">
+                            <Hyperlink Click="Logout_Click">
+                                <TextBlock Text="Log Out" Foreground="#FFA500" />
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
 
@@ -61,7 +69,7 @@
                     <StackPanel>
                         <TextBlock Text="Updates" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/>
 
-                        <TextBlock Text="Current Version: 0.6.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" /> <!-- Displaying Current Version -->
+                        <TextBlock Text="Current Version: 0.7.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" /> <!-- Displaying Current Version -->
 
                         <Button Content="Check for Updates" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" Click="CheckForUpdates_Click" />
 
