@@ -183,8 +183,6 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         private void ForumPageButton_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new ForumPage());
         private void NWASPageButton_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new NWAS());
         private void SettingsButton_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new SettingsPage());
-        private void FindNewAddons_Click(object sender, RoutedEventArgs e) => NavigationService?.Navigate(new NWAS());
-
 
         #region UI Helpers
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
@@ -250,3 +248,4 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         }
     }
 }
+

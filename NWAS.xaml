@@ -51,10 +51,8 @@
 
         <!-- Footer (Optional) -->
         <!-- Uncomment and add content if needed -->
-        <!--
         <Border Grid.Row="2" Background="#1F1F1F" Height="30" VerticalAlignment="Bottom">
-            <TextBlock Text="Footer Content" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF"/>
+            <TextBlock Text="Novawerks Desktop Experience © 2024 Novawerks &amp; xxavv6AMES" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF"/>
         </Border>
-        -->
     </Grid>
 </Page>

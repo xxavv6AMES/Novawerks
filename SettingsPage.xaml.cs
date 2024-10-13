@@ -4,57 +4,57 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Auth0.OidcClient;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Threading.Tasks;
-using System.Net;
-using Microsoft.IdentityModel.Logging;
-using System.Net.Http;
 
 namespace NovawerksApp
 {
     public partial class SettingsPage : Page
     {
         private const string SettingsFilePath = "settings.json";
-        private const string CurrentVersion = "0.8.0-EA"; // Current version of the app
-        private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; // Replace with your actual repository URL
+        private const string CurrentVersion = "0.8.0-EA"; 
+        private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; 
 
         // Define colors for highlighting
-        private const string InactiveTextColor = "#FFFFFF"; // Example: white for inactive
-        private const string ActiveTextColor = "#FF5722"; // Example: orange for active
+        private const string InactiveTextColor = "#FFFFFF"; 
+        private const string ActiveTextColor = "#FF5722"; 
 
         public SettingsPage()
         {
             InitializeComponent();
+            LoadTheme("Dark"); // Set default theme
+        }
+
+        private void LoadTheme(string theme)
+        {
+            ResourceDictionary resourceDict = new ResourceDictionary();
+
+            switch (theme)
+            {
+                case "Light":
+                    resourceDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+                    break;
+                case "Dark":
+                default:
+                    resourceDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
+                    break;
+            }
+
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
         private void ApplySettings_Click(object sender, RoutedEventArgs e)
         {
             string selectedTheme = (ThemeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-            if (selectedTheme == "Light")
-            {
-                // Apply light theme logic
-                MessageBox.Show("Light theme applied!");
-            }
-            else if (selectedTheme == "Dark")
-            {
-                // Apply dark theme logic
-                MessageBox.Show("Dark theme applied!");
-            }
+            LoadTheme(selectedTheme);
+            MessageBox.Show($"{selectedTheme} theme applied!");
         }
+
         private void Logout_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Logout Clicked!");
-        
 
         private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
@@ -77,151 +77,105 @@ namespace NovawerksApp
             }
         }
 
-private async void DownloadAndInstallUpdate_Click(object sender, RoutedEventArgs e)
-{
-    try
-    {
-        Console.WriteLine("Checking for the latest release version from GitHub...");
-        var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
-
-        if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion || string.IsNullOrEmpty(downloadUrl))
+        private async void DownloadAndInstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("No update available.");
-            MessageBox.Show("No update available.");
-            return;
-        }
-
-        Console.WriteLine($"Update available. Latest version: {latestVersion}");
-
-        // Download the update to a file with a proper .exe extension
-        string tempFilePath = Path.Combine(Path.GetTempPath(), "NDE.Setup.exe");
-        Console.WriteLine($"Downloading update to: {tempFilePath}");
-        await DownloadFileAsync(downloadUrl, tempFilePath);
-
-        // Verify that the file is downloaded successfully
-        if (File.Exists(tempFilePath))
-        {
-            Console.WriteLine($"File downloaded successfully: {tempFilePath}");
-            MessageBox.Show("File downloaded successfully.");
-        }
-        else
-        {
-            Console.WriteLine("Failed to download the update.");
-            MessageBox.Show("Failed to download the update.");
-            return;
-        }
-
-        // Install the update
-        Console.WriteLine("Starting the update installation...");
-        InstallUpdate(tempFilePath);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error downloading or installing update: {ex.Message}");
-        MessageBox.Show($"Error downloading or installing update: {ex.Message}");
-    }
-}
-
-private async Task<(string, string)> GetLatestReleaseVersionFromGitHub()
-{
-    using (HttpClient client = new HttpClient())
-    {
-        client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-
-        Console.WriteLine("Fetching release data from GitHub...");
-        HttpResponseMessage response = await client.GetAsync(GitHubReleasesApiUrl);
-        if (response.IsSuccessStatusCode)
-        {
-            Console.WriteLine("Successfully fetched release data.");
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-            JObject releaseData = JObject.Parse(jsonResponse);
-
-            // Extract the latest version tag name and download URL
-            string latestVersionTag = releaseData["tag_name"]?.ToString();
-            string latestVersion = latestVersionTag?.TrimStart('v');
-
-            var assets = releaseData["assets"] as JArray;
-            string downloadUrl = assets?
-                .FirstOrDefault(asset => asset["name"]?.ToString() == "NDE.Setup.exe")?
-                ["browser_download_url"]?.ToString();
-
-            Console.WriteLine($"Latest version: {latestVersion}, Download URL: {downloadUrl}");
-            return (latestVersion, downloadUrl);
-        }
-        else
-        {
-            throw new Exception("Failed to fetch latest release data from GitHub.");
-        }
-    }
-}
-
-private async Task DownloadFileAsync(string url, string outputPath)
-{
-    using (HttpClient client = new HttpClient())
-    {
-        client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-        using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
-        {
-            response.EnsureSuccessStatusCode();
-            Console.WriteLine("Downloading file...");
-            using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                   fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+            try
             {
-                await contentStream.CopyToAsync(fileStream);
-            }
-            Console.WriteLine("Download completed.");
-        }
-    }
-}
+                var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
 
-private void InstallUpdate(string filePath)
-{
-    try
-    {
-        // Ensure that the file exists and is an executable
-        if (File.Exists(filePath))
-        {
-            if (Path.GetExtension(filePath).Equals(".exe", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("File is a valid executable. Starting installer...");
-
-                // Start the installer process
-                var processStartInfo = new ProcessStartInfo
+                if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion || string.IsNullOrEmpty(downloadUrl))
                 {
-                    FileName = filePath,
-                    Arguments = "/silent", // Use silent or any other arguments if needed
-                    UseShellExecute = true, // Ensures the file is executed with the default application
-                    Verb = "runas" // Optional: Run as administrator
-                };
+                    MessageBox.Show("No update available.");
+                    return;
+                }
 
-                Process.Start(processStartInfo);
-                Console.WriteLine("Installer launched successfully. Shutting down application.");
-                Application.Current.Shutdown(); // Close the current application
+                string tempFilePath = Path.GetTempFileName();
+                await DownloadFileAsync(downloadUrl, tempFilePath);
+                InstallUpdate(tempFilePath);
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Downloaded file is not a valid executable.");
-                MessageBox.Show("Downloaded file is not a valid executable.");
+                MessageBox.Show($"Error downloading or installing update: {ex.Message}");
             }
         }
-        else
-        {
-            Console.WriteLine("Update file not found.");
-            MessageBox.Show("Update file not found.");
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error during update process: {ex.Message}");
-        MessageBox.Show($"Error during update process: {ex.Message}");
-    }
-}
 
+        private async Task<(string, string)> GetLatestReleaseVersionFromGitHub()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
+                HttpResponseMessage response = await client.GetAsync(GitHubReleasesApiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    JObject releaseData = JObject.Parse(jsonResponse);
+
+                    string latestVersionTag = releaseData["tag_name"]?.ToString();
+                    string latestVersion = latestVersionTag?.TrimStart('v');
+
+                    var assets = releaseData["assets"] as JArray;
+                    string downloadUrl = assets?
+                        .FirstOrDefault(asset => asset["name"]?.ToString() == "NDE.Setup.exe")?
+                        ["browser_download_url"]?.ToString();
+
+                    return (latestVersion, downloadUrl);
+                }
+                else
+                {
+                    throw new Exception("Failed to fetch latest release data from GitHub.");
+                }
+            }
+        }
+
+        private async Task DownloadFileAsync(string url, string outputPath)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
+                using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    response.EnsureSuccessStatusCode();
+                    using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                           fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                    {
+                        await contentStream.CopyToAsync(fileStream);
+                    }
+                }
+            }
+        }
+
+        private void InstallUpdate(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    var processStartInfo = new ProcessStartInfo
+                    {
+                        FileName = filePath,
+                        Arguments = "/silent",
+                        UseShellExecute = true,
+                        Verb = "runas"
+                    };
+
+                    Process.Start(processStartInfo);
+                    Application.Current.Shutdown();
+                }
+                else
+                {
+                    MessageBox.Show("Update file not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during update process: {ex.Message}");
+            }
+        }
 
         private void OpenChangelog_Click(object sender, RoutedEventArgs e)
         {
-            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.8.0-EA"; // Replace with actual URL
-
+            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.7.0-EA";
             Process.Start(new ProcessStartInfo
             {
                 FileName = changelogUrl,
@@ -229,7 +183,6 @@ private void InstallUpdate(string filePath)
             });
         }
 
-        // Sidebar Button Click Event Handlers
         private void MainPageButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainPage());
@@ -248,15 +201,12 @@ private void InstallUpdate(string filePath)
             HighlightCurrentPage("NWASPageMenuItem");
         }
 
-        // Highlight the current page in the menu
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
-            // Reset all menu items to inactive color
             MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
             ForumPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
             NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
 
-            // Highlight the current page
             var activeTextBlock = FindName(activePageName) as TextBlock;
             if (activeTextBlock != null)
             {
@@ -280,6 +230,7 @@ private void InstallUpdate(string filePath)
             }
             e.Handled = true;
         }
+
         public class UserSettings
         {
             public string Username { get; set; }

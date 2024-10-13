@@ -550,3 +550,5 @@ C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\IdentityModel.OidcClient.dl
 C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.dll
 C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\Themes\DarkTheme.baml
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\Themes\LightTheme.baml

@@ -22,8 +22,6 @@
         <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="True" Background="#1F1F1F" Height="30">
             <Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_Open" InputGestureText="Ctrl+O" Click="OpenMenuItem_Click" Foreground="#B0B0B0"/>
-                    <MenuItem Header="_Save" InputGestureText="Ctrl+S" Click="SaveMenuItem_Click" Foreground="#B0B0B0"/>
                     <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
                 </MenuItem>
                 <MenuItem Header="_Edit">
@@ -85,11 +83,11 @@
         <StackPanel>
 
             <!-- Intro Text -->
-            <TextBlock Text="Welcome to the Novawerks Desktop Experience (NDE)" 
+            <TextBlock Text="Welcome..." 
                        FontSize="24" FontWeight="Bold" Margin="0,0,0,20" 
                        Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
 
-            <TextBlock Text="The Novawerks Desktop Experience (NDE) is designed to be your hub for enhancing your programming.&#x0a;It’s not about being a full-fledged game development suite—yet—but rather about providing you with the essential&#x0a;tools and resources to make your coding life easier and more productive."
+            <TextBlock Text="Sup? Find everything you need and want, right here in the NDE!"
                        FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" 
                        FontFamily="{StaticResource xGFF}"/>
 
@@ -98,7 +96,7 @@
                 <StackPanel>
                     <TextBlock Text="Latest Update:" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock Text="v0.8.0-EA" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock Text="The third EarlyAccess build of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website, including the new account system!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="The 4th primary EarlyAccess release of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock>
                         <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
                             <TextBlock Text="Read about this update" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
@@ -114,30 +112,26 @@
                     <TextBlock Text="Join The WerksClub!" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock Text="The WerksClub is Novawerks' official newsletter. Here's why we think you should join us." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock>
-                        <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com/blog/16" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/join-club" RequestNavigate="Hyperlink_RequestNavigate">
                             <TextBlock Text="Read more" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </Border>
 
-                    <!-- Addon Launcher Section -->
-                    <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
-                        <StackPanel>
-                            <TextBlock Text="Addon Launcher" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}" Margin="0,0,0,10"/>
-                            
-                            <!-- Active Plugin Square -->
-                            <Border Background="#8C52FF" Padding="50" HorizontalAlignment="Center">
-                                <TextBlock Text="Main App" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
-                            </Border>
-
-                            <!-- Find New Addons Button -->
-                            <Button x:Name="FindNewAddonsButton" Content="Find New Addons" Height="40" Background="#8C52FF" Foreground="White" Margin="0,20,0,0" Click="FindNewAddons_Click" FontFamily="{StaticResource xGFF}" FontWeight="Bold"/>
-                        </StackPanel>
+            <!-- Plugin Launcher Section -->
+            <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Addon Launcher" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}" Margin="0,0,0,10"/>
+                    <!-- Active Plugin Square -->
+                    <Border Background="#8C52FF" Padding="50" HorizontalAlignment="Center">
+                        <TextBlock Text="Main App" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
                     </Border>
-
                 </StackPanel>
-            </ScrollViewer>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
 
 
     <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>

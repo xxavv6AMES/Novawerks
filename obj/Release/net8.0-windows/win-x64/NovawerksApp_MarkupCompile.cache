@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\mxavn\NovawerksApp\Novawerks\obj\Release\net8.0-windows\win-x64\
+C:\Users\mxavn\NovawerksApp\obj\Release\net8.0-windows\win-x64\
 NovawerksApp
 none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP
-C:\Users\mxavn\NovawerksApp\Novawerks\App.xaml
+C:\Users\mxavn\NovawerksApp\App.xaml
 9-1923958431
 1-1651753190
 122079057918
-400-752001932
+234-1836437136
 ForumPage.xaml;LoadingWindow.xaml;MainPage.xaml;MainWindow.xaml;NWAS.xaml;SettingsPage.xaml;TutorialOverlay.xaml;UpdateProgressWindow.xaml;UpdatePromptWindow.xaml;
 
 False
