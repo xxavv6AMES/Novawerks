@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NovawerksApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3c11f587b451d107efadd472d6d58bdcea2e2e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77ffae0c2142cfd9f227bbc5db9ecd51c99136a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("NovawerksApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NovawerksApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
