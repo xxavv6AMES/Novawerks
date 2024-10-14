@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using System.Windows.Navigation;
 
 namespace NovawerksApp
 {
@@ -17,8 +18,12 @@ namespace NovawerksApp
         private const string SettingsFilePath = "settings.json";
         private const string CurrentVersion = "0.8.0-EA"; 
         private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; 
+        private const string CurrentVersion = "0.8.0-EA"; 
+        private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; 
 
         // Define colors for highlighting
+        private const string InactiveTextColor = "#FFFFFF"; 
+        private const string ActiveTextColor = "#FF5722"; 
         private const string InactiveTextColor = "#FFFFFF"; 
         private const string ActiveTextColor = "#FF5722"; 
 
@@ -26,8 +31,26 @@ namespace NovawerksApp
         {
             InitializeComponent();
             LoadTheme("Dark"); // Set default theme
+            LoadTheme("Dark"); // Set default theme
         }
 
+        private void LoadTheme(string theme)
+        {
+            ResourceDictionary resourceDict = new ResourceDictionary();
+
+            switch (theme)
+            {
+                case "Light":
+                    resourceDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+                    break;
+                case "Dark":
+                default:
+                    resourceDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
+                    break;
+            }
+
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         private void LoadTheme(string theme)
         {
             ResourceDictionary resourceDict = new ResourceDictionary();
@@ -50,6 +73,11 @@ namespace NovawerksApp
         private void ApplySettings_Click(object sender, RoutedEventArgs e)
         {
             string selectedTheme = (ThemeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            LoadTheme(selectedTheme);
+            MessageBox.Show($"{selectedTheme} theme applied!");
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Logout Clicked!");
             LoadTheme(selectedTheme);
             MessageBox.Show($"{selectedTheme} theme applied!");
         }
@@ -284,6 +312,23 @@ private void OpenChangelog_Click(object sender, RoutedEventArgs e)
             {
                 activeTextBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ActiveTextColor));
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = e.Uri.ToString(),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open link: {ex.Message}");
+            }
+            e.Handled = true;
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

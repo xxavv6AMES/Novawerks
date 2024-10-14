@@ -4,12 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\
 NovawerksApp
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+<<<<<<< HEAD
 C:\Users\mxavn\Downloads\Novawerks\App.xaml
+=======
+C:\Users\mxavn\NovawerksApp\App.xaml
+>>>>>>> 2590c4ddb443017b78b798913b04f0b87f7b9586
 111524919524
 3-550295789
 12343118663

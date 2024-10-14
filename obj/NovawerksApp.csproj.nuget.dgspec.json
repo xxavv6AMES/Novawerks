@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mxavn\\Downloads\\Novawerks\\NovawerksApp.csproj": {}
+    "C:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mxavn\\Downloads\\Novawerks\\NovawerksApp.csproj": {
+    "C:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mxavn\\Downloads\\Novawerks\\NovawerksApp.csproj",
+        "projectUniqueName": "C:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj",
         "projectName": "NovawerksApp",
-        "projectPath": "C:\\Users\\mxavn\\Downloads\\Novawerks\\NovawerksApp.csproj",
+        "projectPath": "C:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj",
         "packagesPath": "C:\\Users\\mxavn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mxavn\\Downloads\\Novawerks\\obj\\",
+        "outputPath": "C:\\Users\\mxavn\\NovawerksApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mxavn\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mxavn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0-windows"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

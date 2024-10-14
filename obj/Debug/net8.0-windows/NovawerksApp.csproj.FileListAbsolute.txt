@@ -183,6 +183,7 @@ C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\refint\NovawerksApp.dll
 C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\NovawerksApp.pdb
 C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\NovawerksApp.genruntimeconfig.cache
 C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\ref\NovawerksApp.dll
+<<<<<<< HEAD
 C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
 C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
 C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
@@ -368,3 +369,5 @@ C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\refint\NovawerksApp.
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\NovawerksApp.pdb
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\NovawerksApp.genruntimeconfig.cache
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\ref\NovawerksApp.dll
+=======
+>>>>>>> 2590c4ddb443017b78b798913b04f0b87f7b9586
