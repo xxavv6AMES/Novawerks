@@ -6,7 +6,44 @@
         AllowsTransparency="True"
         Background="Transparent"
         SizeToContent="WidthAndHeight">
+
+    <!-- Root Container -->
     <Border Background="Black" CornerRadius="10" Padding="20">
-        <TextBlock Text="Loading, please wait..." Foreground="White" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Starting NDE" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
+
+            <Grid>
+                <!-- Loading Spinner -->
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Ellipse Width="50" Height="50" Stroke="Orange" StrokeThickness="5" 
+                             RenderTransformOrigin="0.5,0.5">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform x:Name="spinnerRotateTransform" Angle="0"/>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Width="30" Height="30" Stroke="Black" StrokeThickness="5" Fill="Black"/>
+                </Grid>
+
+                <!-- Loading Text -->
+                <TextBlock Text="Starting NDE" Foreground="White" FontSize="16" 
+                           HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20,60,0,0"/>
+            </Grid>
+        </StackPanel>
     </Border>
+
+    <!-- Animation for Loading Spinner -->
+    <Window.Resources>
+        <Storyboard x:Key="LoadingAnimation" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="spinnerRotateTransform"
+                             Storyboard.TargetProperty="Angle"
+                             From="0" To="360" Duration="0:0:2"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <!-- Start the Animation when the Window Loads -->
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource LoadingAnimation}"/>
+        </EventTrigger>
+    </Window.Triggers>
 </Window>

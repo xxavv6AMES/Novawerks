@@ -4,213 +4,257 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Supabase;
+using System.Windows.Navigation;
 
 namespace NovawerksApp
 {
     public partial class SettingsPage : Page
     {
         private const string SettingsFilePath = "settings.json";
-        private const string CurrentVersion = "0.7.0-EA"; // Current version of the app
-        private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; // Replace with your actual repository URL
+        private const string CurrentVersion = "0.8.0-EA"; 
+        private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; 
 
         // Define colors for highlighting
-        private const string InactiveTextColor = "#FFFFFF"; // Example: white for inactive
-        private const string ActiveTextColor = "#FF5722"; // Example: orange for active
+        private const string InactiveTextColor = "#FFFFFF"; 
+        private const string ActiveTextColor = "#FF5722"; 
 
         public SettingsPage()
         {
             InitializeComponent();
-            LoadUserSettings();
+            LoadTheme("Dark"); // Set default theme
         }
 
-        private void LoadUserSettings()
+        private void LoadTheme(string theme)
         {
-            if (File.Exists(SettingsFilePath))
-            {
-                var jsonData = File.ReadAllText(SettingsFilePath);
-                var userSettings = JsonConvert.DeserializeObject<UserSettings>(jsonData);
+            ResourceDictionary resourceDict = new ResourceDictionary();
 
-                if (userSettings != null)
-                {
-                    UsernameTextBox.Text = userSettings.Username ?? string.Empty;
-                    EmailTextBox.Text = userSettings.Email ?? string.Empty;
-                    ThemeComboBox.SelectedIndex = userSettings.Theme == "Dark" ? 1 : 0;
-                }
+            switch (theme)
+            {
+                case "Light":
+                    resourceDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+                    break;
+                case "Dark":
+                default:
+                    resourceDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
+                    break;
             }
-        }
 
-        private void UpdateAccount_Click(object sender, RoutedEventArgs e)
-        {
-            var userSettings = new UserSettings
-            {
-                Username = UsernameTextBox.Text,
-                Email = EmailTextBox.Text,
-                Theme = (ThemeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString()
-            };
-
-            var jsonData = JsonConvert.SerializeObject(userSettings, Formatting.Indented);
-            File.WriteAllText(SettingsFilePath, jsonData);
-
-            MessageBox.Show("Account settings updated successfully.");
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
         private void ApplySettings_Click(object sender, RoutedEventArgs e)
         {
             string selectedTheme = (ThemeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-            if (selectedTheme == "Light")
-            {
-                // Apply light theme logic
-                MessageBox.Show("Light theme applied!");
-            }
-            else if (selectedTheme == "Dark")
-            {
-                // Apply dark theme logic
-                MessageBox.Show("Dark theme applied!");
-            }
+            LoadTheme(selectedTheme);
+            MessageBox.Show($"{selectedTheme} theme applied!");
         }
 
-        private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
+        private void Logout_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Logout Clicked!");
 
-                if (!string.IsNullOrEmpty(latestVersion) && latestVersion != CurrentVersion)
-                {
-                    MessageBox.Show($"A new version is available! Current: {CurrentVersion}, Latest: {latestVersion}.\nPlease update to the latest version.");
-                }
-                else
-                {
-                    MessageBox.Show("You are up to date!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error checking for updates: {ex.Message}");
-            }
+private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
+
+        if (!string.IsNullOrEmpty(latestVersion) && latestVersion != CurrentVersion)
+        {
+            MessageBox.Show($"A new version is available! Current: {CurrentVersion}, Latest: {latestVersion}.\nPlease update to the latest version.");
+        }
+        else
+        {
+            MessageBox.Show("You are up to date!");
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error checking for updates: {ex.Message}");
+    }
+}
+
+private async void DownloadAndInstallUpdate_Click(object sender, RoutedEventArgs e)
+{
+    // Open the update progress window
+    UpdateProgressWindow updateProgressWindow = new UpdateProgressWindow();
+    updateProgressWindow.Show();
+
+    try
+    {
+        var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
+
+        if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion || string.IsNullOrEmpty(downloadUrl))
+        {
+            MessageBox.Show("No update available.");
+            updateProgressWindow.Close(); // Close the window if no update is available
+            return;
         }
 
-        private async void DownloadAndInstallUpdate_Click(object sender, RoutedEventArgs e)
+        // Clean old temporary files before downloading the new update
+        CleanOldTempFiles();
+
+        // Ensure the downloaded file has a proper name and extension
+        string tempFilePath = Path.Combine(Path.GetTempPath(), "NDESetup.exe");
+
+        // Update progress bar in the UpdateProgressWindow (indicating download start)
+        updateProgressWindow.UpdateProgress("Downloading update...");
+
+        await DownloadFileAsync(downloadUrl, tempFilePath, updateProgressWindow); // Passing the window to track progress
+
+        // Update progress bar when download is finished
+        updateProgressWindow.UpdateProgress("Installing update...");
+
+        // Install the update
+        InstallUpdate(tempFilePath);
+
+        // Close the progress window once the installation is complete
+        updateProgressWindow.Close();
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error downloading or installing update: {ex.Message}");
+        updateProgressWindow.Close(); // Ensure the window is closed in case of error
+    }
+}
+
+private async Task<(string, string)> GetLatestReleaseVersionFromGitHub()
+{
+    using (HttpClient client = new HttpClient())
+    {
+        client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
+        HttpResponseMessage response = await client.GetAsync(GitHubReleasesApiUrl);
+
+        if (response.IsSuccessStatusCode)
         {
-            try
-            {
-                var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
+            string jsonResponse = await response.Content.ReadAsStringAsync();
+            JObject releaseData = JObject.Parse(jsonResponse);
 
-                if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion || string.IsNullOrEmpty(downloadUrl))
-                {
-                    MessageBox.Show("No update available.");
-                    return;
-                }
+            string latestVersionTag = releaseData["tag_name"]?.ToString();
+            string latestVersion = latestVersionTag?.TrimStart('v');
 
-                // Download the update
-                string tempFilePath = Path.GetTempFileName();
-                await DownloadFileAsync(downloadUrl, tempFilePath);
+            var assets = releaseData["assets"] as JArray;
+            string downloadUrl = assets?
+                .FirstOrDefault(asset => asset["name"]?.ToString() == "NDESetup.exe")?
+                ["browser_download_url"]?.ToString();
 
-                // Install the update
-                InstallUpdate(tempFilePath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error downloading or installing update: {ex.Message}");
-            }
+            return (latestVersion, downloadUrl);
         }
-
-        private async Task<(string, string)> GetLatestReleaseVersionFromGitHub()
+        else
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-
-                HttpResponseMessage response = await client.GetAsync(GitHubReleasesApiUrl);
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    JObject releaseData = JObject.Parse(jsonResponse);
-
-                    // Extract the latest version tag name and download URL
-                    string latestVersionTag = releaseData["tag_name"]?.ToString();
-                    string latestVersion = latestVersionTag?.TrimStart('v');
-
-                    var assets = releaseData["assets"] as JArray;
-                    string downloadUrl = assets?
-                        .FirstOrDefault(asset => asset["name"]?.ToString() == "NDE.Setup.exe")?
-                        ["browser_download_url"]?.ToString();
-
-                    return (latestVersion, downloadUrl);
-                }
-                else
-                {
-                    throw new Exception("Failed to fetch latest release data from GitHub.");
-                }
-            }
+            throw new Exception("Failed to fetch latest release data from GitHub.");
         }
+    }
+}
 
-        private async Task DownloadFileAsync(string url, string outputPath)
+private async Task DownloadFileAsync(string url, string outputPath, UpdateProgressWindow progressWindow)
+{
+    try
+    {
+        using (HttpClient client = new HttpClient())
         {
-            using (HttpClient client = new HttpClient())
+            client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
+            using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-                using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                response.EnsureSuccessStatusCode();
+
+                var totalBytes = response.Content.Headers.ContentLength ?? -1L;
+                var canReportProgress = totalBytes != -1L;
+
+                using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                       fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
                 {
-                    response.EnsureSuccessStatusCode();
-                    using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                           fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                    var totalRead = 0L;
+                    var buffer = new byte[8192];
+                    int bytesRead;
+
+                    while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                     {
-                        await contentStream.CopyToAsync(fileStream);
+                        await fileStream.WriteAsync(buffer, 0, bytesRead);
+                        totalRead += bytesRead;
+
+                        // Calculate progress percentage if possible
+                        if (canReportProgress)
+                        {
+                            var progress = (totalRead * 100) / totalBytes;
+                            progressWindow.UpdateProgress($"Downloading update...", progress);
+                        }
                     }
                 }
+
+                // Final update to indicate completion
+                progressWindow.UpdateProgress("Download complete.", 100);
             }
         }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error downloading update: {ex.Message}");
+        progressWindow.UpdateProgress("Error downloading update.");
+    }
+}
 
-        private void InstallUpdate(string filePath)
+private void InstallUpdate(string filePath)
+{
+    try
+    {
+        // Check if the file exists and if it is an executable (.exe)
+        if (File.Exists(filePath) && Path.GetExtension(filePath).Equals(".exe", StringComparison.OrdinalIgnoreCase))
         {
-            try
+            var processStartInfo = new ProcessStartInfo
             {
-                // Ensure that the file exists
-                if (File.Exists(filePath))
-                {
-                    // Start the installer process
-                    var processStartInfo = new ProcessStartInfo
-                    {
-                        FileName = filePath,
-                        Arguments = "/silent", // Use silent or any other arguments if needed
-                        UseShellExecute = true, // Ensures the file is executed with the default application
-                        Verb = "runas" // Optional: Run as administrator
-                    };
+                FileName = filePath,
+                Arguments = "/silent",
+                UseShellExecute = true,
+                Verb = "runas" // Run with admin privileges
+            };
 
-                    Process.Start(processStartInfo);
-                    Application.Current.Shutdown(); // Close the current application
-                }
-                else
-                {
-                    MessageBox.Show("Update file not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error during update process: {ex.Message}");
-            }
+            Process.Start(processStartInfo);
+            Application.Current.Shutdown(); // Close the current application after starting the update
         }
-
-        private void OpenChangelog_Click(object sender, RoutedEventArgs e)
+        else
         {
-            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.7.0-EA"; // Replace with actual URL
-
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = changelogUrl,
-                UseShellExecute = true
-            });
+            MessageBox.Show("Update file not found or invalid file format.");
         }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error during update process: {ex.Message}");
+    }
+}
 
-        // Sidebar Button Click Event Handlers
+private void CleanOldTempFiles()
+{
+    var tempDirectory = Path.GetTempPath();
+    var oldTempFiles = Directory.GetFiles(tempDirectory, "NDESetup*.exe");
+    foreach (var oldFile in oldTempFiles)
+    {
+        try
+        {
+            File.Delete(oldFile); // Attempt to delete any old installer files
+        }
+        catch (Exception)
+        {
+            // Ignore any errors that occur when trying to delete files (e.g., if the file is in use)
+        }
+    }
+}
+
+private void OpenChangelog_Click(object sender, RoutedEventArgs e)
+{
+    string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.8.0-EA";
+    Process.Start(new ProcessStartInfo
+    {
+        FileName = changelogUrl,
+        UseShellExecute = true
+    });
+}
+
+
+
         private void MainPageButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainPage());
@@ -229,20 +273,34 @@ namespace NovawerksApp
             HighlightCurrentPage("NWASPageMenuItem");
         }
 
-        // Highlight the current page in the menu
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
-            // Reset all menu items to inactive color
             MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
             ForumPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
             NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
 
-            // Highlight the current page
             var activeTextBlock = FindName(activePageName) as TextBlock;
             if (activeTextBlock != null)
             {
                 activeTextBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ActiveTextColor));
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = e.Uri.ToString(),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open link: {ex.Message}");
+            }
+            e.Handled = true;
         }
 
         public class UserSettings

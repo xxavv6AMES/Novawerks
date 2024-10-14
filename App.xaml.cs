@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -14,6 +15,10 @@ namespace NovawerksApp
         {
             try
             {
+                // Set the security protocol to TLS 1.2
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                Console.WriteLine("TLS 1.2 is set.");
+
                 // Initialize the loading window and show it
                 _loadingWindow = new LoadingWindow();
                 _loadingWindow.Show();

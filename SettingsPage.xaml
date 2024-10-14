@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="SettingsPage"
-      Background="#000000"> <!-- AMOLED Black -->
+      Title="Settings"
+      Background="#121212"> <!-- Dark Background -->
 
     <Grid>
         <!-- Define a grid with two columns: one for the sidebar and one for the content -->
@@ -15,36 +15,44 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left Menu -->
-        <Border x:Name="LeftMenu" Background="#1E1E1E" Grid.Column="0" VerticalAlignment="Stretch" Visibility="Visible" CornerRadius="10" Margin="10">
+        <Border x:Name="LeftMenu" Background="#1E1E1E" Grid.Column="0" VerticalAlignment="Stretch" CornerRadius="10" Margin="10">
             <StackPanel>
-                <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}" />
-                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}" />
-                <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}" />
+                <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Bold" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}" />
+                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Bold" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}" />
+                <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="20,15" Padding="10" Foreground="#FFFFFF" Cursor="Hand" FontSize="18" FontWeight="Bold" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}" />
             </StackPanel>
         </Border>
 
         <!-- Main Content Area with ScrollViewer -->
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Margin="20" PanningMode="VerticalFirst">
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="20" PanningMode="VerticalFirst">
             <StackPanel>
                 <!-- Account Section -->
                 <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
                     <StackPanel>
-                        <TextBlock Text="Account Settings" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/> <!-- Orange Accent -->
+                        <TextBlock Text="Account Settings" FontSize="24" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="Bold"/>
 
-                        <TextBlock Text="Username" Foreground="#FFA500" FontWeight="Medium"/> <!-- Orange Accent -->
-                        <TextBox x:Name="UsernameTextBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1" />
+                        <!-- User Profile Information -->
+                        <TextBlock x:Name="UserName" FontSize="20" Margin="10" Foreground="#FFFFFF" />
+                        <TextBlock x:Name="UserEmail" FontSize="16" Margin="10" Foreground="#B0B0B0" />
 
-                        <TextBlock Text="Email" Foreground="#FFA500" FontWeight="Medium"/> <!-- Orange Accent -->
-                        <TextBox x:Name="EmailTextBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1" />
-
-                        <Button Content="Update Account" Click="UpdateAccount_Click" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" />
+                        <!-- Manage Account and Logout -->
+                        <TextBlock Margin="10,20,0,0">
+                            <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Text="Manage Your Account" Foreground="#FFA500" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Margin="10,0,0,0">
+                            <Hyperlink Click="Logout_Click">
+                                <TextBlock Text="Log Out" Foreground="#FFA500" />
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
 
                 <!-- App Settings -->
                 <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
                     <StackPanel>
-                        <TextBlock Text="App Settings" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/>
+                        <TextBlock Text="App Settings" FontSize="24" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="Bold"/>
 
                         <TextBlock Text="Theme" Foreground="#FFA500" FontWeight="Medium"/>
                         <ComboBox x:Name="ThemeComboBox" Margin="0,5,0,20" Background="#333" Foreground="#FFF" Padding="10" BorderBrush="#444" BorderThickness="1">
@@ -59,9 +67,9 @@
                 <!-- Updates Section -->
                 <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
                     <StackPanel>
-                        <TextBlock Text="Updates" FontSize="20" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="SemiBold"/>
+                        <TextBlock Text="Updates" FontSize="24" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="Bold"/>
 
-                        <TextBlock Text="Current Version: 0.7.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" /> <!-- Displaying Current Version -->
+                        <TextBlock Text="Current Version: 0.8.0-EA" Foreground="#FFFFFF" Margin="0,5,0,20" />
 
                         <Button Content="Check for Updates" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" Click="CheckForUpdates_Click" />
 
