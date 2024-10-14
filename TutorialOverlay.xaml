@@ -5,11 +5,11 @@
         Background="#000000" Foreground="#FFFFFF" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" WindowStyle="None" ShowInTaskbar="False"
         Height="200" Width="400">
-    <Border Background="#2F2F2F" CornerRadius="10" Padding="20" BorderBrush="#8C52FF" BorderThickness="2">
+    <Border Background="#2F2F2F" CornerRadius="10" Padding="20" BorderBrush="#FFA500" BorderThickness="2">
         <StackPanel>
             <TextBlock Text="Welcome to the Novawerks Desktop Experience !" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" Foreground="#E0E0E0"/>
             <TextBlock Text="To access the sidebar menu, simply hover over the top left corner of the window. This will slide out the menu where you can navigate to different sections of the app." FontSize="16" Margin="0,0,0,20" Foreground="#CCCCCC"/>
-            <Button Content="Got It!" Background="#8C52FF" Foreground="#FFFFFF" FontSize="16" Click="GotItButton_Click"/>
+            <Button Content="Got It!" Background="#FFA500" Foreground="#FFFFFF" FontSize="16" Click="GotItButton_Click"/>
         </StackPanel>
     </Border>
 </Window>

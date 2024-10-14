@@ -23,7 +23,6 @@ public MainWindow()
     InitializeComponent(); // Ensure components are fully initialized
     this.Loaded += MainWindow_Loaded; // Attach the Loaded event
 }
-
 private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 {
     // Navigate to MainPage after the window is fully loaded

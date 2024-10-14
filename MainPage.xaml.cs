@@ -20,7 +20,7 @@ namespace NovawerksApp
     public partial class MainPage : Page
     {
         private const double HoverAreaWidth = 10; // Width of the hover area
-        private const string ActiveTextColor = "#8C52FF"; // Color for active page
+        private const string ActiveTextColor = "#FFA500"; // Color for active page
         private const string InactiveTextColor = "#CCCCCC"; // Color for inactive pages
 
         private Auth0Client auth0Client; // Auth0 client instance

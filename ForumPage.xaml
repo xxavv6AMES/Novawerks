@@ -27,7 +27,7 @@
         <Border x:Name="LeftMenu" Grid.Row="1" Background="#2F2F2F" Width="250" HorizontalAlignment="Left" VerticalAlignment="Stretch" Visibility="Collapsed">
             <StackPanel>
                 <TextBlock x:Name="MainPageMenuItem" Text="Main Page" Margin="10" Padding="5" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="5" Foreground="#8C52FF" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                <TextBlock x:Name="ForumPageMenuItem" Text="Forum Page" Margin="10" Padding="5" Foreground="#FFA500" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
                 <TextBlock x:Name="NWASPageMenuItem" Text="NWAS Page" Margin="10" Padding="5" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="SemiBold" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
             </StackPanel>
         </Border>

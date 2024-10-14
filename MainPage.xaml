@@ -46,7 +46,7 @@
 
 
                 <!-- Login/Logout Buttons -->
-                <Button x:Name="LoginButton" Content="Login" Background="#8C52FF" Foreground="White" Width="80" Height="30" Margin="0,0,10,0" Click="LoginButton_Click"/>
+                <Button x:Name="LoginButton" Content="Login" Background="#FFA500" Foreground="White" Width="80" Height="30" Margin="0,0,10,0" Click="LoginButton_Click"/>
                 <Button x:Name="LogoutButton" Content="Logout" Background="#FF4444" Foreground="White" Width="80" Height="30" Click="LogoutButton_Click" Visibility="Collapsed"/>
             </StackPanel>
         </DockPanel>
@@ -61,7 +61,7 @@
                 </StackPanel>
 
                 <!-- Settings Button -->
-                <Button x:Name="SettingsButton" Content="Settings" Height="40" Background="#8C52FF" Foreground="White" VerticalAlignment="Bottom" Margin="10"
+                <Button x:Name="SettingsButton" Content="Settings" Height="40" Background="#FFA500" Foreground="White" VerticalAlignment="Bottom" Margin="10"
                         Click="SettingsButton_Click" FontFamily="{StaticResource xGFF}" FontWeight="Bold"/>
             </DockPanel>
         </Border>
@@ -99,7 +99,7 @@
                     <TextBlock Text="The 4th primary EarlyAccess release of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock>
                         <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
-                            <TextBlock Text="Read about this update" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Read about this update" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
@@ -113,7 +113,7 @@
                     <TextBlock Text="The WerksClub is Novawerks' official newsletter. Here's why we think you should join us." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                     <TextBlock>
                         <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/join-club" RequestNavigate="Hyperlink_RequestNavigate">
-                            <TextBlock Text="Read more" Foreground="#8C52FF" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Read more" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
@@ -124,7 +124,7 @@
                 <StackPanel>
                     <TextBlock Text="Addon Launcher" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}" Margin="0,0,0,10"/>
                     <!-- Active Plugin Square -->
-                    <Border Background="#8C52FF" Padding="50" HorizontalAlignment="Center">
+                    <Border Background="#FFA500" Padding="50" HorizontalAlignment="Center">
                         <TextBlock Text="Main App" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
                     </Border>
                 </StackPanel>
