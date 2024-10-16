@@ -3,12 +3,14 @@ using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using Auth0.OidcClient;
 
 namespace NovawerksApp
 {
     public partial class App : Application
     {
         private LoadingWindow _loadingWindow;
+        private Auth0Client _auth0Client; // Declare the Auth0 client
 
         // Entry point for application startup
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -18,6 +20,9 @@ namespace NovawerksApp
                 // Set the security protocol to TLS 1.2
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 Console.WriteLine("TLS 1.2 is set.");
+
+                // Initialize Auth0 client
+                InitializeAuth0Client();
 
                 // Initialize the loading window and show it
                 _loadingWindow = new LoadingWindow();
@@ -64,6 +69,18 @@ namespace NovawerksApp
             }
         }
 
+        // Method to initialize Auth0 Client
+        private void InitializeAuth0Client()
+        {
+            _auth0Client = new Auth0Client(new Auth0ClientOptions
+            {
+                Domain = "auth.novawerks.xxavvgroup.com",
+                ClientId = "aUjxl8FbT9j68N9YTpfLsOwOFV6Vsv1m",
+                Scope = "openid profile email",
+                RedirectUri = "NDE://callback"
+            });
+        }
+
         // Method to check internet connectivity
         private async Task<bool> CheckInternetConnectivity()
         {
@@ -89,5 +106,8 @@ namespace NovawerksApp
             _loadingWindow?.Close();
             _loadingWindow = null; // Clean up
         }
+
+        // Property to access the Auth0 client
+        public Auth0Client Auth0Client => _auth0Client;
     }
 }

@@ -1,4 +1,3 @@
-using Auth0.OidcClient;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -9,7 +8,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Threading.Tasks;
 using System.Net;
-using Microsoft.IdentityModel.Logging;
 using System.Net.Http;
 using System.ServiceModel.Syndication;
 using System.Xml;
@@ -23,83 +21,12 @@ namespace NovawerksApp
         private const string ActiveTextColor = "#FFA500"; // Color for active page
         private const string InactiveTextColor = "#CCCCCC"; // Color for inactive pages
 
-        private Auth0Client auth0Client; // Auth0 client instance
-        private bool isLoggedIn = false; // User login status
-
-        // OpenID configuration details
-        private const string Issuer = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/";
-        private const string AuthorizationEndpoint = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/authorize";
-        private const string TokenEndpoint = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/oauth/token";
-        private const string UserinfoEndpoint = "https://dev-oex5fnsu3gh2tvi2.us.auth0.com/userinfo";
-
         public MainPage()
         {
             InitializeComponent();
-            IdentityModelEventSource.ShowPII = true;
             RegisterCommandBindings();
             HighlightCurrentPage();
-            InitializeAuth0(); // Initialize Auth0 client
         }
-
-        private void InitializeAuth0()
-        {
-            // Set TLS 1.2 security protocol
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            try
-            {
-                auth0Client = new Auth0Client(new Auth0ClientOptions
-                {
-                    Domain = "dev-oex5fnsu3gh2tvi2.us.auth0.com",  // Double check the Auth0 domain
-                    ClientId = "jgZVUpNEuYyGGUeDuxEKRqfBHwsYtkOD",
-                    Scope = "openid profile email",
-                    RedirectUri = "http://localhost:5000/",  // Ensure this matches Auth0 settings
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Auth0 initialization failed: {ex.Message}");
-            }
-        }
-
-private async void LoginButton_Click(object sender, RoutedEventArgs e)
-{
-    try
-    {
-        if (auth0Client == null)
-        {
-            throw new InvalidOperationException("Auth0 client is not initialized.");
-        }
-
-        var loginResult = await auth0Client.LoginAsync();
-
-        if (loginResult.IsError)
-        {
-            MessageBox.Show($"Login failed: {loginResult.Error}");
-        }
-        else
-        {
-            isLoggedIn = true;
-            var user = loginResult.User;
-            
-            if (user != null)
-            {
-                // Display user info
-                var email = user.FindFirst(c => c.Type == "email")?.Value;
-                MessageBox.Show($"Welcome {user.Identity.Name}\nEmail: {email}");
-
-                // Update UI or other elements with user information
-                // For example, if you have a TextBlock to display the email:
-                UserEmailTextBlock.Text = email;
-            }
-        }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
-    }
-    UpdateLoginUI();
-}
 
         private async Task<string> FetchConfigurationAsync(string configUrl)
         {
@@ -118,36 +45,50 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
                 }
             }
         }
+// Login logic
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Access the Auth0 instance from App.xaml.cs
+                var auth0Client = ((App)Application.Current).Auth0Client;
 
+                // Perform authentication
+                var loginResult = await auth0Client.LoginAsync();
+
+                if (loginResult.IsError)
+                {
+                    MessageBox.Show($"Error: {loginResult.Error}");
+                    return;
+                }
+
+                // Success: Display user info
+                var userInfo = loginResult.User;
+                MessageBox.Show($"Welcome, {userInfo.FindFirst(c => c.Type == "name")?.Value}!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+        }
+
+        // Logout logic
         private async void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (auth0Client == null)
-                {
-                    throw new InvalidOperationException("Auth0 client is not initialized.");
-                }
+                // Access the Auth0 instance from App.xaml.cs
+                var auth0Client = ((App)Application.Current).Auth0Client;
 
+                // Perform logout
                 await auth0Client.LogoutAsync();
-                isLoggedIn = false;
-                MessageBox.Show("You're logged out.");
+                MessageBox.Show("Logged out successfully!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Oops! Something went wrong. {ex.Message}");
-            }
-            UpdateLoginUI();
-        }
-
-        private void UpdateLoginUI()
-        {
-            if (LoginButton != null && LogoutButton != null)
-            {
-                LoginButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
-                LogoutButton.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+                MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
-
         private void RegisterCommandBindings()
         {
             CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, OpenCommand_Executed));
@@ -162,7 +103,7 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         #region Command Handlers
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e) => OpenMenuItem_Click(sender, e);
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e) => SaveMenuItem_Click(sender, e);
-        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e) => ExitMenuItem_Click(sender, e);
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e) => Application.Current.Shutdown();
         private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e) => UndoMenuItem_Click(sender, e);
         private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e) => RedoMenuItem_Click(sender, e);
         private void RefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e) => RefreshMenuItem_Click(sender, e);
@@ -248,4 +189,3 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         }
     }
 }
-
