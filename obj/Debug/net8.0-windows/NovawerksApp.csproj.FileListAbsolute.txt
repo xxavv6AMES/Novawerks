@@ -371,3 +371,5 @@ C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\refint\NovawerksApp.
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\NovawerksApp.pdb
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\NovawerksApp.genruntimeconfig.cache
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\ref\NovawerksApp.dll
+C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\LauncherWindow.baml
+C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\LauncherWindow.g.cs
