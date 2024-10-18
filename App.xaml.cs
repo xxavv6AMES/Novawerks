@@ -9,8 +9,8 @@ namespace NovawerksApp
 {
     public partial class App : Application
     {
-        private LoadingWindow _loadingWindow;
-        private Auth0Client _auth0Client; // Declare the Auth0 client
+        private LoadingWindow? _loadingWindow;
+        private LauncherWindow? _launcherWindow;
 
         // Entry point for application startup
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -37,8 +37,23 @@ namespace NovawerksApp
                         {
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                MessageBox.Show("No internet connection detected. The application requires an internet connection to function properly.");
-                                Shutdown(); // Exit the application
+                                // Show message box with options
+                                MessageBoxResult result = MessageBox.Show(
+                                    "No internet connection detected. The application requires an internet connection to function properly. Do you want to switch to Launcher-Only mode?",
+                                    "No Internet",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Warning);
+
+                                if (result == MessageBoxResult.Yes)
+                                {
+                                    // Open Launcher-Only mode
+                                    OpenLauncherOnlyMode();
+                                }
+                                else
+                                {
+                                    // Close the application
+                                    Shutdown(); 
+                                }
                             });
                         }
                         else
@@ -72,7 +87,7 @@ namespace NovawerksApp
         // Method to initialize Auth0 Client
         private void InitializeAuth0Client()
         {
-            _auth0Client = new Auth0Client(new Auth0ClientOptions
+            Auth0Client = new Auth0Client(new Auth0ClientOptions
             {
                 Domain = "auth.novawerks.xxavvgroup.com",
                 ClientId = "aUjxl8FbT9j68N9YTpfLsOwOFV6Vsv1m",
@@ -107,7 +122,18 @@ namespace NovawerksApp
             _loadingWindow = null; // Clean up
         }
 
+        // Open Launcher-Only mode for selecting an addon
+        private void OpenLauncherOnlyMode()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _launcherWindow = new LauncherWindow();
+                _launcherWindow.Show();
+                _loadingWindow?.Close(); // Close the loading window
+            });
+        }
+
         // Property to access the Auth0 client
-        public Auth0Client Auth0Client => _auth0Client;
+        public Auth0Client? Auth0Client { get; private set; }
     }
 }

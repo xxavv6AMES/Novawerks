@@ -1,0 +1,81 @@
+<Page x:Class="NovawerksApp.LicenseAgreement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+      Background="#121212" Foreground="#E0E0E0"
+      Title="LicenseAgreement">
+
+    <!-- Root Grid Element -->
+    <Grid>
+        <!-- Define Columns and Rows for Layout -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />    <!-- For Main Content -->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>    <!-- For Menu -->
+            <RowDefinition Height="*" />      <!-- For Content -->
+            <RowDefinition Height="Auto"/>    <!-- For Footer -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="#1F1F1F" Height="50" VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Back Button -->
+                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
+                    <Image Source='Images\fullback.png' Width="24" Height="24"/>
+                </Button>
+
+                <!-- Page Title -->
+                <TextBlock Grid.Column="1" Text="Novawerks Desktop App License of Use" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFFFFF" FontWeight="Bold" FontFamily="{StaticResource xGFF}"/>
+            </Grid>
+        </Border>
+
+        <!-- License Content Area -->
+        <Grid Grid.Row="1" Grid.Column="1" Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <StackPanel>
+            <!-- License Title -->
+            <TextBlock Text="PLEASE READ THIS DOCUMENT CAREFULLY." FontSize="18" Margin="0,0,0,20" Foreground="#B0B0B0" TextWrapping="Wrap"/>
+
+            <!-- License Content -->
+            <TextBlock Text="By installing and using the Novawerks Desktop App ('the App'), you agree to the following terms:" Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+            <!-- 1. Software Provided "As Is" -->
+            <TextBlock Text="1. Software Provided 'As Is'" FontWeight="Bold" Foreground="#E0E0E0" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="The App is provided 'as is,' without any warranties or guarantees regarding its performance or functionality." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <TextBlock Text="The developers are dedicated to delivering regular updates to enhance the App, but there is no obligation to fix or address any specific issues that may arise." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+            <!-- 2. Source Code Modification -->
+            <TextBlock Text="2. Source Code Modification" FontWeight="Bold" Foreground="#E0E0E0" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="Users are not recommended to modify the source code of the App. However, if you choose to modify the source code, you do so at your own risk. Personal modifications are permitted under the following conditions:" Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,5"/>
+
+            <!-- Source Code Conditions -->
+            <TextBlock Text="- Attribution: If you share modified versions of the App or derivative works, you must provide appropriate credit to the original authors." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="20,0,0,5"/>
+            <TextBlock Text="- ShareAlike: Any derivative work you create must be licensed under the same terms as this license." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="20,0,0,10"/>
+
+            <!-- 3. Non-Commercial Use Only -->
+            <TextBlock Text="3. Non-Commercial Use Only" FontWeight="Bold" Foreground="#E0E0E0" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="You are NOT permitted under any circumstances to use the App, its source code, or any ideas, features, or portions of it for commercial purposes or to generate profit." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+            <!-- 4. Agreement to Terms -->
+            <TextBlock Text="4. Agreement to Terms" FontWeight="Bold" Foreground="#E0E0E0" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="By continuing with the installation and use of the App, you acknowledge that you have read, understood, and agreed to this License of Use, as well as the Novawerks Terms of Service (see below)." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,10"/>
+
+            <!-- 5. Additional Rights -->
+            <TextBlock Text="5. Additional Rights" FontWeight="Bold" Foreground="#E0E0E0" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="This license does not affect any statutory rights you may have under applicable law." Foreground="#B0B0B0" TextWrapping="Wrap" Margin="0,0,0,10"/>
+        </StackPanel>
+    </ScrollViewer>
+</Grid>
+
+        <!-- Footer -->
+        <Border Background="#1F1F1F" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30" VerticalAlignment="Bottom">
+            <TextBlock Text="Novawerks Desktop Experience ©2024 Novawerks &amp; xxavv6AMES" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#CCCCCC"/>
+        </Border>
+    </Grid>
+</Page>
