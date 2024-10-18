@@ -16,7 +16,7 @@ namespace NovawerksApp
             {
                 string selectedAddon = AddonListBox.SelectedItem.ToString();
                 MessageBox.Show($"Launching {selectedAddon}", "Addon Launcher", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+
                 // Insert logic here to launch the selected addon
 
                 // For demonstration, we'll just close the launcher window after launching

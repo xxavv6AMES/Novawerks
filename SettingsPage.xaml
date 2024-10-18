@@ -37,7 +37,7 @@
 
                         <!-- Manage Account and Logout -->
                         <TextBlock Margin="10,20,0,0">
-                            <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
+                            <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/tos" RequestNavigate="Hyperlink_RequestNavigate">
                                 <TextBlock Text="Manage Your Account" Foreground="#FFA500" />
                             </Hyperlink>
                         </TextBlock>
@@ -78,6 +78,27 @@
                         <TextBlock Text="View Changelog" Foreground="#FFA500" Cursor="Hand" TextDecorations="Underline" MouseDown="OpenChangelog_Click" Margin="0,15,0,0"/>
                     </StackPanel>
                 </Border>
+
+                <!-- Agreements Section -->
+                <Border Background="#1A1A1A" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Agreements &amp; More" FontSize="24" Foreground="#FFA500" Margin="0,0,0,15" FontWeight="Bold"/>
+                        <TextBlock Text="When you installed NDE, here's what you agreed to." Foreground="#FFFFFF" Margin="0,5,0,20" />
+                        <Button Content="NDE License Of Use" Click="LicenseAgreementPage_Click" Background="#FFA500" Foreground="#000" Width="180" HorizontalAlignment="Left" Height="40" />
+
+                        <TextBlock Margin="10,20,0,0">
+                            <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/tos" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Text="Terms Of Service" Foreground="#FFA500" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Margin="10,0,0,0">
+                            <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/privacy-policy" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Text="Privacy Policy" Foreground="#FFA500" />
+                            </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
