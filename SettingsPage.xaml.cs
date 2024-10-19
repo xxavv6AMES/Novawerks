@@ -54,7 +54,10 @@ namespace NovawerksApp
             MessageBox.Show($"{selectedTheme} theme applied!");
         }
 
-        private void Logout_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Logout Clicked!");
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Logout Clicked!");
+        }
 
         private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
         {
@@ -79,6 +82,9 @@ namespace NovawerksApp
 
         private async void DownloadAndInstallUpdate_Click(object sender, RoutedEventArgs e)
         {
+            UpdateProgressWindow updateProgressWindow = new UpdateProgressWindow();
+            updateProgressWindow.Show();
+
             try
             {
                 var (latestVersion, downloadUrl) = await GetLatestReleaseVersionFromGitHub();
@@ -86,16 +92,26 @@ namespace NovawerksApp
                 if (string.IsNullOrEmpty(latestVersion) || latestVersion == CurrentVersion || string.IsNullOrEmpty(downloadUrl))
                 {
                     MessageBox.Show("No update available.");
+                    updateProgressWindow.Close(); 
                     return;
                 }
 
-                string tempFilePath = Path.GetTempFileName();
-                await DownloadFileAsync(downloadUrl, tempFilePath);
+                CleanOldTempFiles();
+                string tempFilePath = Path.Combine(Path.GetTempPath(), "NDESetup.exe");
+
+                updateProgressWindow.UpdateProgress("Downloading update...");
+
+                await DownloadFileAsync(downloadUrl, tempFilePath, updateProgressWindow);
+
+                updateProgressWindow.UpdateProgress("Installing update...");
+
                 InstallUpdate(tempFilePath);
+                updateProgressWindow.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error downloading or installing update: {ex.Message}");
+                updateProgressWindow.Close();
             }
         }
 
@@ -116,7 +132,7 @@ namespace NovawerksApp
 
                     var assets = releaseData["assets"] as JArray;
                     string downloadUrl = assets?
-                        .FirstOrDefault(asset => asset["name"]?.ToString() == "NDE.Setup.exe")?
+                        .FirstOrDefault(asset => asset["name"]?.ToString() == "NDESetup.exe")?
                         ["browser_download_url"]?.ToString();
 
                     return (latestVersion, downloadUrl);
@@ -128,20 +144,48 @@ namespace NovawerksApp
             }
         }
 
-        private async Task DownloadFileAsync(string url, string outputPath)
+        private async Task DownloadFileAsync(string url, string outputPath, UpdateProgressWindow progressWindow)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
-                using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                using (HttpClient client = new HttpClient())
                 {
-                    response.EnsureSuccessStatusCode();
-                    using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                           fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                    client.DefaultRequestHeaders.Add("User-Agent", "NovawerksApp");
+                    using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                     {
-                        await contentStream.CopyToAsync(fileStream);
+                        response.EnsureSuccessStatusCode();
+
+                        var totalBytes = response.Content.Headers.ContentLength ?? -1L;
+                        var canReportProgress = totalBytes != -1L;
+
+                        using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
+                               fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                        {
+                            var totalRead = 0L;
+                            var buffer = new byte[8192];
+                            int bytesRead;
+
+                            while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                            {
+                                await fileStream.WriteAsync(buffer, 0, bytesRead);
+                                totalRead += bytesRead;
+
+                                if (canReportProgress)
+                                {
+                                    var progress = (totalRead * 100) / totalBytes;
+                                    progressWindow.UpdateProgress($"Downloading update...", progress);
+                                }
+                            }
+                        }
+
+                        progressWindow.UpdateProgress("Download complete.", 100);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error downloading update: {ex.Message}");
+                progressWindow.UpdateProgress("Error downloading update.");
             }
         }
 
@@ -149,7 +193,7 @@ namespace NovawerksApp
         {
             try
             {
-                if (File.Exists(filePath))
+                if (File.Exists(filePath) && Path.GetExtension(filePath).Equals(".exe", StringComparison.OrdinalIgnoreCase))
                 {
                     var processStartInfo = new ProcessStartInfo
                     {
@@ -164,7 +208,7 @@ namespace NovawerksApp
                 }
                 else
                 {
-                    MessageBox.Show("Update file not found.");
+                    MessageBox.Show("Update file not found or invalid file format.");
                 }
             }
             catch (Exception ex)
@@ -173,9 +217,25 @@ namespace NovawerksApp
             }
         }
 
+        private void CleanOldTempFiles()
+        {
+            var tempDirectory = Path.GetTempPath();
+            var oldTempFiles = Directory.GetFiles(tempDirectory, "NDESetup*.exe");
+            foreach (var oldFile in oldTempFiles)
+            {
+                try
+                {
+                    File.Delete(oldFile);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
         private void OpenChangelog_Click(object sender, RoutedEventArgs e)
         {
-            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.7.0-EA";
+            string changelogUrl = "https://github.com/xxavv6AMES/Novawerks/releases/tag/v0.8.0-EA";
             Process.Start(new ProcessStartInfo
             {
                 FileName = changelogUrl,
@@ -201,6 +261,12 @@ namespace NovawerksApp
             HighlightCurrentPage("NWASPageMenuItem");
         }
 
+        private void LicenseAgreementPage_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new LicenseAgreement());
+        }
+
+
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
             MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
@@ -214,28 +280,23 @@ namespace NovawerksApp
             }
         }
 
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+{
+    try
+    {
+        // This will open the link in the default browser
+        Process.Start(new ProcessStartInfo
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = e.Uri.ToString(),
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to open link: {ex.Message}");
-            }
-            e.Handled = true;
-        }
-
-        public class UserSettings
-        {
-            public string Username { get; set; }
-            public string Email { get; set; }
-            public string Theme { get; set; }
-        }
+            FileName = e.Uri.AbsoluteUri,  // Ensures it's an absolute URI
+            UseShellExecute = true         // This is crucial for opening in default browser
+        });
+        
+        e.Handled = true;  // Marks the event as handled to prevent default behavior
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Failed to open link: {ex.Message}");
+    }
+}
     }
 }

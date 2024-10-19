@@ -8,9 +8,9 @@
         Foreground="#FFF">
     <Grid Margin="10">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Downloading and installing update" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" />
-            <ProgressBar x:Name="ProgressBar" IsIndeterminate="True" Width="300" Height="20" Margin="0,0,0,10"/>
-            <TextBlock Text="Please wait" Foreground="#FFF" />
+            <TextBlock x:Name="UpdateStatusText" Text="Downloading and installing update" FontSize="16" Foreground="#FFA500" Margin="0,0,0,10" />
+            <ProgressBar x:Name="ProgressBar" Width="300" Height="20" Margin="0,0,0,10"/>
+            <TextBlock x:Name="ProgressDetailText" Text="Please wait" Foreground="#FFF" />
         </StackPanel>
     </Grid>
 </Window>

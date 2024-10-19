@@ -10,7 +10,6 @@
     <!-- Root Container -->
     <Border Background="Black" CornerRadius="10" Padding="20">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Starting NDE" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
 
             <Grid>
                 <!-- Loading Spinner -->

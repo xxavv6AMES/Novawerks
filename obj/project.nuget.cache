@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TfQxGSs0ucc=",
+  "dgSpecHash": "cgRlq+y78IU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\mxavn\\NovawerksApp\\NovawerksApp.csproj",
+  "projectFilePath": "C:\\Users\\mxavn\\Downloads\\Novawerks\\NovawerksApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mxavn\\.nuget\\packages\\auth0.aspnetcore.authentication\\1.4.1\\auth0.aspnetcore.authentication.1.4.1.nupkg.sha512",
     "C:\\Users\\mxavn\\.nuget\\packages\\auth0.authenticationapi\\7.26.2\\auth0.authenticationapi.7.26.2.nupkg.sha512",
