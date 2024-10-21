@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2024/10/17-23:50:50.466 4bb0 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
 2024/10/17-23:50:50.466 4bb0 Recovering log #4
 2024/10/17-23:50:50.468 4bb0 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Session Storage/000004.log 
+=======
+2024/10/17-23:37:56.659 4c50 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
+2024/10/17-23:37:56.664 4c50 Recovering log #4
+2024/10/17-23:37:56.667 4c50 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Session Storage/000004.log 
+>>>>>>> 443c85cefdea6b4038f7d7aa2dc6dbd778dcca45

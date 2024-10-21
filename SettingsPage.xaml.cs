@@ -261,6 +261,12 @@ namespace NovawerksApp
             HighlightCurrentPage("NWASPageMenuItem");
         }
 
+        private void LicenseAgreementPage_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new LicenseAgreement());
+        }
+
+
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
             MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
@@ -274,20 +280,23 @@ namespace NovawerksApp
             }
         }
 
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+{
+    try
+    {
+        // This will open the link in the default browser
+        Process.Start(new ProcessStartInfo
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = e.Uri.ToString(),
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to open link: {ex.Message}");
-            }
-        }
+            FileName = e.Uri.AbsoluteUri,  // Ensures it's an absolute URI
+            UseShellExecute = true         // This is crucial for opening in default browser
+        });
+        
+        e.Handled = true;  // Marks the event as handled to prevent default behavior
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Failed to open link: {ex.Message}");
+    }
+}
     }
 }
