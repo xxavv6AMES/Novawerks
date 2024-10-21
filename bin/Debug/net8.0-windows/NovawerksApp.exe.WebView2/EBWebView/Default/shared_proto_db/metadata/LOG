@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-2024/10/17-23:50:48.631 96c Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
-2024/10/17-23:50:48.632 96c Recovering log #3
-2024/10/17-23:50:48.632 96c Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db\metadata/000003.log 
-=======
-2024/10/17-23:37:55.866 2aa0 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
-2024/10/17-23:37:55.867 2aa0 Recovering log #3
-2024/10/17-23:37:55.867 2aa0 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db\metadata/000003.log 
->>>>>>> 443c85cefdea6b4038f7d7aa2dc6dbd778dcca45
+2024/10/21-17:55:04.013 445c Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
+2024/10/21-17:55:04.013 445c Recovering log #3
+2024/10/21-17:55:04.013 445c Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db\metadata/000003.log 

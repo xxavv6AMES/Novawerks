@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-2024/10/17-23:50:48.615 57e0 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
-2024/10/17-23:50:48.615 57e0 Recovering log #3
-2024/10/17-23:50:48.615 57e0 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Sync Data\LevelDB/000003.log 
-=======
-2024/10/17-23:37:55.849 4f90 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
-2024/10/17-23:37:55.849 4f90 Recovering log #3
-2024/10/17-23:37:55.849 4f90 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Sync Data\LevelDB/000003.log 
->>>>>>> 443c85cefdea6b4038f7d7aa2dc6dbd778dcca45
+2024/10/21-17:55:03.994 445c Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
+2024/10/21-17:55:03.994 445c Recovering log #3
+2024/10/21-17:55:03.995 445c Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Sync Data\LevelDB/000003.log 
