@@ -4,51 +4,100 @@
         Title="Novawerks" Height="800" Width="1400"
         Background="#000000" Foreground="#FFFFFF"
         WindowStartupLocation="CenterScreen"
-        AllowsTransparency="False"
+        AllowsTransparency="True"
         WindowStyle="None"
-        ResizeMode="CanMinimize"
-        MinWidth="1400"
-        MinHeight="800">
+        ResizeMode="CanResizeWithGrip"
+        MinWidth="800"
+        MinHeight="600">
+    
+    <!-- Window-level Resources -->
+    <Window.Resources>
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D2D2D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
-    <Grid>
-        <!-- Define two rows, one for the title bar and one for content -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" /> <!-- Title bar -->
-            <RowDefinition Height="*" />    <!-- Main content (Frame) -->
-        </Grid.RowDefinitions>
+    <!-- Main Border for Window Resize -->
+    <Border BorderBrush="#1F1F1F" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>    <!-- Combined title/navigation bar -->
+                <RowDefinition Height="*"/>     <!-- Main content -->
+            </Grid.RowDefinitions>
 
-        <!-- Title Bar with Buttons -->
-        <Border Background="#1F1F1F" Height="40" VerticalAlignment="Top" Grid.Row="0"
-                MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <!-- Combined Title and Navigation Bar -->
+            <Border Grid.Row="0" Background="#1F1F1F" 
+                    MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>  <!-- Left: App Icon -->
+                        <ColumnDefinition Width="*"/>     <!-- Center: Title -->
+                        <ColumnDefinition Width="Auto"/>  <!-- Right: Login + Window Controls -->
+                    </Grid.ColumnDefinitions>
 
-                <!-- Minimize Button -->
-                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="MinimizeButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5">
-                    <TextBlock Text="-" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
-                </Button>
+                    <!-- Left: App Icon -->
+                    <Image Grid.Column="0" Source="novawerks1.ico" 
+                           Height="32" Margin="12,0"/>
 
-                <!-- Title -->
-                <TextBlock Grid.Column="1" Text="Novawerks" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" FontWeight="Bold"/>
+                    <!-- Center: Title -->
+                    <TextBlock Grid.Column="1" Text="Novawerks Desktop Experience"
+                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                              Foreground="#FFFFFF" FontSize="18" FontWeight="SemiBold"/>
 
-                <!-- Maximize/Restore Button -->
-                <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="MaximizeRestoreButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                    <TextBlock Text="#" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
-                </Button>
+                    <!-- Right: Login + Window Controls -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" 
+                              HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <!-- Login Button -->
+                        <Button Content="Login" Style="{StaticResource ModernButtonStyle}"
+                                Click="LoginButton_Click" Margin="0,0,20,0"/>
+                        
+                        <!-- Window Controls -->
+                        <Button Style="{StaticResource ModernButtonStyle}"
+                                Click="MinimizeButton_Click" Padding="12,0">
+                            <TextBlock Text="−" FontSize="24"/>
+                        </Button>
+                        <Button x:Name="MaximizeRestoreButton" 
+                                Style="{StaticResource ModernButtonStyle}"
+                                Click="MaximizeRestoreButton_Click" Padding="12,0">
+                            <TextBlock x:Name="MaximizeRestoreIcon" Text="□" FontSize="24"/>
+                        </Button>
+                        <Button Style="{StaticResource ModernButtonStyle}"
+                                Click="CloseButton_Click" Padding="12,0">
+                            <TextBlock Text="×" FontSize="24"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-                <!-- Close Button -->
-                <Button Grid.Column="3" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                    <TextBlock Text="X" Foreground="#FFFFFF" FontSize="16" FontWeight="Bold"/>
-                </Button>
-            </Grid>
-        </Border>
+            <!-- Main Content Area -->
+            <Frame Name="MainFrame" Grid.Row="1" 
+                   NavigationUIVisibility="Hidden" Background="#000000"/>
 
-        <!-- Frame for Page Navigation -->
-        <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="0"/>
-    </Grid>
+            <!-- Resize Grip -->
+            <ResizeGrip Grid.Row="1" HorizontalAlignment="Right" 
+                       VerticalAlignment="Bottom" 
+                       Opacity="0.4" Margin="0,0,5,5"/>
+        </Grid>
+    </Border>
 </Window>

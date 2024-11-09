@@ -117,7 +117,26 @@ namespace NovawerksApp
         private void UndoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Undo clicked!");
         private void RedoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Redo clicked!");
         private void RefreshMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Refresh clicked!");
-        private void HelpMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Help clicked!");
+        private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
+{
+    // Define the URL you want to navigate to
+    string url = "https://werks.nova.xxavvgroup.com/helpcenter";
+
+    // Use System.Diagnostics.Process to open the URL in the default web browser
+    try
+    {
+        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true // Necessary for opening URLs on modern systems
+        });
+    }
+    catch (Exception ex)
+    {
+        // Handle any exceptions, such as if the URL fails to open
+        MessageBox.Show($"Unable to open the URL: {ex.Message}");
+    }
+}
         #endregion
 
         private void MainPageButton_Click(object sender, RoutedEventArgs e) => HighlightCurrentPage("MainPageMenuItem");

@@ -375,3 +375,7 @@ C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\LauncherWindow.baml
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\LauncherWindow.g.cs
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\LicenseAgreement.baml
 C:\Users\mxavn\Downloads\Novawerks\obj\Debug\net8.0-windows\LicenseAgreement.g.cs
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\LauncherWindow.baml
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\LicenseAgreement.baml
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\LauncherWindow.g.cs
+C:\Users\mxavn\NovawerksApp\obj\Debug\net8.0-windows\LicenseAgreement.g.cs

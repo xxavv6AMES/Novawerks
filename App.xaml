@@ -2,19 +2,92 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:NovawerksApp"
-             StartupUri="LoadingWindow.xaml" 
+             StartupUri="LoadingWindow.xaml"
              Startup="Application_Startup">
     <Application.Resources>
         <!-- Define the Variable Font -->
         <FontFamily x:Key="xGFF">/Fonts/#WMFD</FontFamily>
-
+        
         <!-- Default Style for TextBlocks using the Variable Font -->
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource xGFF}" />
-            <Setter Property="FontWeight" Value="400"/> <!-- Adjustable weight -->
-            <Setter Property="FontStretch" Value="Normal"/> <!-- Adjustable width -->
-            <Setter Property="FontStyle" Value="Normal"/> <!-- Italic, oblique, etc. -->
+            <Setter Property="FontWeight" Value="400"/>
+            <Setter Property="FontStretch" Value="Normal"/>
+            <Setter Property="FontStyle" Value="Normal"/>
         </Style>
 
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B0B0B0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="{StaticResource xGFF}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2A2A30"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern Accent Button Style -->
+        <Style x:Key="ModernAccentButton" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Background" Value="#FF6B2C"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF824D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern Link Button Style -->
+        <Style x:Key="ModernLinkButton" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Foreground" Value="#FF6B2C"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#FF824D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern Close Button Style -->
+        <Style x:Key="ModernCloseButton" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Background" Value="#1A1A22"/>
+            <Setter Property="Foreground" Value="#8E8E95"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3B3B"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Subtle Shadow Effect -->
+        <DropShadowEffect x:Key="SubtleShadow" 
+                         BlurRadius="10" 
+                         Direction="270" 
+                         ShadowDepth="3" 
+                         Opacity="0.2"/>
     </Application.Resources>
 </Application>
