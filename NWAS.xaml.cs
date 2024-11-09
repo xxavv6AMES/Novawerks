@@ -3,8 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media.Animation;
 using Newtonsoft.Json.Linq;
 using System.Windows.Media;
 
@@ -17,7 +15,6 @@ namespace NovawerksApp
         public NWAS()
         {
             InitializeComponent();
-            SetupHoverArea();
             LoadReleasesAsync();
         }
 
@@ -38,17 +35,72 @@ namespace NovawerksApp
                         string releaseTag = release["tag_name"].ToString();
                         string releaseUrl = release["html_url"].ToString();
 
-                        // Add release info to UI (you can customize this part)
-                        var releaseButton = new Button
+                        // Create product container for each add-on
+                        var releaseContainer = new Border
                         {
-                            Content = $"{releaseName} ({releaseTag})",
-                            Tag = releaseUrl,
-                            Margin = new Thickness(5),
-                            Background = new SolidColorBrush(System.Windows.Media.Colors.Orange)
+                            BorderThickness = new Thickness(2),
+                            BorderBrush = new SolidColorBrush(Color.FromRgb(255, 189, 6)), // Accent color for border
+                            CornerRadius = new CornerRadius(10),
+                            Margin = new Thickness(10),
+                            Padding = new Thickness(10),
+                            Background = new SolidColorBrush(Color.FromRgb(31, 31, 31)),
+                            Width = 300,
+                            Height = 200,
                         };
 
-                        releaseButton.Click += (s, e) => System.Diagnostics.Process.Start(releaseUrl);
-                        ReleasesPanel.Children.Add(releaseButton);
+                        // StackPanel to hold content
+                        var contentPanel = new StackPanel
+                        {
+                            Orientation = Orientation.Vertical
+                        };
+
+                        // Add Release Name as Title
+                        var titleTextBlock = new TextBlock
+                        {
+                            Text = $"{releaseName} ({releaseTag})",
+                            Foreground = new SolidColorBrush(Colors.White),
+                            FontWeight = FontWeights.Bold,
+                            FontSize = 16,
+                            Margin = new Thickness(0, 0, 0, 10)
+                        };
+
+                        // Add a short description (Placeholder text, replace with actual if available)
+                        var descriptionTextBlock = new TextBlock
+                        {
+                            Text = "This is a cool addon that enhances your workflow.",
+                            Foreground = new SolidColorBrush(Colors.LightGray),
+                            FontSize = 14,
+                            Margin = new Thickness(0, 0, 0, 10)
+                        };
+
+                        // Button to download the add-on
+                        var downloadButton = new Button
+                        {
+                            Content = "Download",
+                            Tag = releaseUrl,
+                            Width = 100,
+                            Height = 30,
+                            Background = new SolidColorBrush(Colors.Orange),
+                            Foreground = new SolidColorBrush(Colors.Black),
+                            FontWeight = FontWeights.Bold
+                        };
+
+                        downloadButton.Click += (s, e) => System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = releaseUrl,
+                            UseShellExecute = true
+                        });
+
+                        // Add title, description, and button to contentPanel
+                        contentPanel.Children.Add(titleTextBlock);
+                        contentPanel.Children.Add(descriptionTextBlock);
+                        contentPanel.Children.Add(downloadButton);
+
+                        // Add contentPanel to releaseContainer
+                        releaseContainer.Child = contentPanel;
+
+                        // Add releaseContainer to StackPanel (ReleasesPanel in XAML)
+                        ReleasesPanel.Children.Add(releaseContainer);
                     }
                 }
             }
@@ -62,15 +114,6 @@ namespace NovawerksApp
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-        }
-
-        // Setup hover area for detecting mouse movement
-        private void SetupHoverArea()
-        {
-            HoverArea.Width = 10;
-            HoverArea.HorizontalAlignment = HorizontalAlignment.Left;
-            HoverArea.VerticalAlignment = VerticalAlignment.Stretch;
-            HoverArea.Margin = new Thickness(0, 0, 0, 0);
         }
     }
 }

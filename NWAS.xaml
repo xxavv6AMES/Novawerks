@@ -10,13 +10,13 @@
         <!-- Define Rows for Layout -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="Auto"/> <!-- Hero Banner -->
             <RowDefinition Height="*"/>    <!-- Content -->
-            <!-- Optional Footer -->
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/> <!-- Footer -->
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Background="#1F1F1F" Height="50" VerticalAlignment="Top">
+        <Border Grid.Row="0" Background="#1F1F1F" Height="50" VerticalAlignment="Top">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -24,34 +24,36 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Back Button -->
-                <Button Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
-                    <Image Source='Images\fullback.png' Width="24" Height="24"/>
-                </Button>
+                <Button Content="←" FontSize="20" Background="#2F2F2F" Foreground="#FFFFFF" BorderBrush="Transparent" Click="BackButton_Click"/>
 
                 <!-- Page Title -->
-                <TextBlock Grid.Column="1" Text="Novawerks Addon Store (Preview)" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFFFFF" FontWeight="Bold" FontFamily="{StaticResource xGFF}"/>
+                <TextBlock Grid.Column="1" Text="NDE Store" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFFFFF" FontWeight="Bold" FontFamily="{StaticResource xGFF}"/>
             </Grid>
         </Border>
 
-        <!-- Hover Area -->
-        <Border x:Name="HoverArea" Background="Transparent" Width="10" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+        <!-- Hero Banner -->
+        <Border Grid.Row="1" Background="#2D2D2D" Height="150" VerticalAlignment="Top" Margin="0,0,0,20">
+            <TextBlock Text="Welcome to the Novawerks Addon Store!" 
+                       FontSize="36" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" 
+                       Foreground="#FFFFFF" 
+                       FontWeight="Bold" 
+                       FontFamily="Fonts/WMFD.ttf" 
+                       Margin="20"/>
+        </Border>
 
         <!-- Content Area -->
-        <Grid Grid.Row="1" Margin="20">
+        <Grid Grid.Row="2" Margin="20,10,20,10">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel x:Name="ReleasesPanel">
-                    <!-- Addon Store Intro Text -->
-                    <TextBlock Text="Welcome to the Novawerks Addon Store!" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20" Foreground="#FFFFFF" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock Text="Browse and download addons to enhance your development experience." FontSize="16" Margin="0,0,0,20" Foreground="#CCCCCC" FontFamily="{StaticResource xGFF}"/>
-                    
-                    <!-- Dynamic Addons will be added here by C# code -->
+                <StackPanel x:Name="ReleasesPanel" Orientation="Vertical">
+                    <!-- GitHub releases will be dynamically loaded here -->
                 </StackPanel>
             </ScrollViewer>
         </Grid>
 
-        <!-- Footer (Optional) -->
-        <!-- Uncomment and add content if needed -->
-        <Border Grid.Row="2" Background="#1F1F1F" Height="30" VerticalAlignment="Bottom">
+        <!-- Footer -->
+        <Border Grid.Row="3" Background="#1F1F1F" Height="30" VerticalAlignment="Bottom">
             <TextBlock Text="Novawerks Desktop Experience © 2024 Novawerks &amp; xxavv6AMES" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF"/>
         </Border>
     </Grid>
