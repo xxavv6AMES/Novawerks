@@ -132,26 +132,7 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         private void UndoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Undo clicked!");
         private void RedoMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Redo clicked!");
         private void RefreshMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Refresh clicked!");
-        private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
-{
-    // Define the URL you want to navigate to
-    string url = "https://werks.nova.xxavvgroup.com/helpcenter";
-
-    // Use System.Diagnostics.Process to open the URL in the default web browser
-    try
-    {
-        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-        {
-            FileName = url,
-            UseShellExecute = true // Necessary for opening URLs on modern systems
-        });
-    }
-    catch (Exception ex)
-    {
-        // Handle any exceptions, such as if the URL fails to open
-        MessageBox.Show($"Unable to open the URL: {ex.Message}");
-    }
-}
+        private void HelpMenuItem_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Help clicked!");
         #endregion
 
         private void MainPageButton_Click(object sender, RoutedEventArgs e) => HighlightCurrentPage("MainPageMenuItem");
@@ -162,10 +143,6 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         #region UI Helpers
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
-            // Reset all menu items to inactive color
-            if (MainPageMenuItem != null) MainPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
-            if (ForumPageMenuItem != null) ForumPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
-            if (NWASPageMenuItem != null) NWASPageMenuItem.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(InactiveTextColor));
 
             // Highlight the current page
             if (FindName(activePageName) is TextBlock activeTextBlock)

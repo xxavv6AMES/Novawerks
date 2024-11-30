@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-2024/11/09-18:22:39.009 3444 Reusing MANIFEST C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\IndexedDB\https_forums.nova.xxavvgroup.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/11/09-18:22:39.009 3444 Recovering log #3
-2024/11/09-18:22:39.010 3444 Reusing old log C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\IndexedDB\https_forums.nova.xxavvgroup.com_0.indexeddb.leveldb/000003.log 
-=======
-2024/10/21-17:05:12.227 1898 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\IndexedDB\https_forums.nova.xxavvgroup.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/10/21-17:05:12.227 1898 Recovering log #3
-2024/10/21-17:05:12.230 1898 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\IndexedDB\https_forums.nova.xxavvgroup.com_0.indexeddb.leveldb/000003.log 
->>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198

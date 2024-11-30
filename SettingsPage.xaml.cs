@@ -15,7 +15,7 @@ namespace NovawerksApp
     public partial class SettingsPage : Page
     {
         private const string SettingsFilePath = "settings.json";
-        private const string CurrentVersion = "0.8.0-EA"; 
+        private const string CurrentVersion = "0.9.0-EA"; 
         private const string GitHubReleasesApiUrl = "https://api.github.com/repos/xxavv6AMES/Novawerks/releases/latest"; 
 
         // Define colors for highlighting

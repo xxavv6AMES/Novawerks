@@ -17,6 +17,30 @@
             <RowDefinition Height="Auto"/>    <!-- For Footer -->
         </Grid.RowDefinitions>
 
+        <!-- Menu Bar -->
+<DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="True" Background="#1F1F1F" Height="30">
+<Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
+    <MenuItem Header="_File">
+        <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
+    </MenuItem>
+    <MenuItem Header="_Edit">
+        <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Click="UndoMenuItem_Click" Foreground="#B0B0B0"/>
+        <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Click="RedoMenuItem_Click" Foreground="#B0B0B0"/>
+    </MenuItem>
+    <MenuItem Header="_View">
+        <MenuItem Header="_Refresh" InputGestureText="F5" Click="RefreshMenuItem_Click" Foreground="#B0B0B0"/>
+    </MenuItem>
+    <MenuItem Header="_Account">
+        <MenuItem Header="_Login" Click="LoginButton_Click" Foreground="#B0B0B0"/>
+        <MenuItem Header="_Logout" Click="LogoutButton_Click" Foreground="#B0B0B0"/>
+    </MenuItem>
+
+    <MenuItem Header="_Help">
+        <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
+    </MenuItem>
+</Menu>
+</DockPanel>
+
 
         <!-- Left Menu (Always Visible) -->
         <Border x:Name="LeftMenu" Background="#2F2F2F" Width="230" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch">
