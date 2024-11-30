@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.ServiceModel.Syndication;
 using System.Xml;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 
 namespace NovawerksApp
 {
@@ -46,31 +47,47 @@ namespace NovawerksApp
             }
         }
 // Login logic
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+private async void LoginButton_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        // Access the Auth0 instance from App.xaml.cs
+        var auth0Client = ((App)Application.Current).Auth0Client;
+
+        // Perform authentication
+        var loginResult = await auth0Client.LoginAsync();
+
+        if (loginResult.IsError)
         {
-            try
-            {
-                // Access the Auth0 instance from App.xaml.cs
-                var auth0Client = ((App)Application.Current).Auth0Client;
-
-                // Perform authentication
-                var loginResult = await auth0Client.LoginAsync();
-
-                if (loginResult.IsError)
-                {
-                    MessageBox.Show($"Error: {loginResult.Error}");
-                    return;
-                }
-
-                // Success: Display user info
-                var userInfo = loginResult.User;
-                MessageBox.Show($"Welcome, {userInfo.FindFirst(c => c.Type == "name")?.Value}!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}");
-            }
+            MessageBox.Show($"Error: {loginResult.Error}");
+            return;
         }
+
+        // Success: Display user info
+        var userInfo = loginResult.User;
+        MessageBox.Show($"Welcome, {userInfo.FindFirst(c => c.Type == "name")?.Value}!");
+
+        // Update Novawerks ID section
+        UsernameTextBlock.Text = userInfo.FindFirst(c => c.Type == "name")?.Value ?? "Username not available";
+        EmailTextBlock.Text = userInfo.FindFirst(c => c.Type == "email")?.Value ?? "Email not available";
+
+        // Set profile picture (assuming the URL is provided in the user info)
+        var profilePictureUrl = userInfo.FindFirst(c => c.Type == "picture")?.Value; // Ensure this claim exists
+        if (!string.IsNullOrEmpty(profilePictureUrl))
+        {
+            UserProfilePicture.Source = new BitmapImage(new Uri(profilePictureUrl));
+        }
+        else
+        {
+            // Set a default image if the profile picture is not available
+            UserProfilePicture.Source = new BitmapImage(new Uri("Images/novawerks1.png")); // Update the path
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"An error occurred: {ex.Message}");
+    }
+}
 
         // Logout logic
         private async void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -97,7 +114,6 @@ namespace NovawerksApp
             CommandBindings.Add(new CommandBinding(ApplicationCommands.Undo, UndoCommand_Executed));
             CommandBindings.Add(new CommandBinding(ApplicationCommands.Redo, RedoCommand_Executed));
             CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh, RefreshCommand_Executed));
-            CommandBindings.Add(new CommandBinding(ApplicationCommands.Help, HelpCommand_Executed));
         }
 
         #region Command Handlers
@@ -107,7 +123,6 @@ namespace NovawerksApp
         private void UndoCommand_Executed(object sender, ExecutedRoutedEventArgs e) => UndoMenuItem_Click(sender, e);
         private void RedoCommand_Executed(object sender, ExecutedRoutedEventArgs e) => RedoMenuItem_Click(sender, e);
         private void RefreshCommand_Executed(object sender, ExecutedRoutedEventArgs e) => RefreshMenuItem_Click(sender, e);
-        private void HelpCommand_Executed(object sender, ExecutedRoutedEventArgs e) => ToggleHelpSidebar();
         #endregion
 
         #region Menu Event Handlers
@@ -158,38 +173,8 @@ namespace NovawerksApp
                 activeTextBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ActiveTextColor));
             }
         }
-
-        private void ToggleHelpSidebar()
-        {
-            if (HelpSidebar != null && ContentFrame != null)
-            {
-                if (HelpSidebar.Visibility == Visibility.Collapsed)
-                {
-                    HelpSidebar.Visibility = Visibility.Visible;
-                    ContentFrame.BeginAnimation(MarginProperty, new ThicknessAnimation
-                    {
-                        From = new Thickness(ContentFrame.Margin.Left, 0, -300, 0),
-                        To = new Thickness(ContentFrame.Margin.Left + 300, 0, 0, 0),
-                        Duration = TimeSpan.FromSeconds(0.5)
-                    });
-                }
-                else
-                {
-                    var slideOutAnimation = new ThicknessAnimation
-                    {
-                        From = ContentFrame.Margin,
-                        To = new Thickness(ContentFrame.Margin.Left - 300, 0, 0, 0),
-                        Duration = TimeSpan.FromSeconds(0.5)
-                    };
-                    slideOutAnimation.Completed += (s, e) => HelpSidebar.Visibility = Visibility.Collapsed;
-                    ContentFrame.BeginAnimation(MarginProperty, slideOutAnimation);
-                }
-            }
-        }
-
-        private void CloseHelpSidebar_Click(object sender, RoutedEventArgs e) => ToggleHelpSidebar();
-        #endregion
-
+#endregion
+        
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             try

@@ -131,5 +131,13 @@ namespace NovawerksApp
                 DragMove();
             }
         }
+<<<<<<< HEAD
     }
 }
+=======
+        
+        
+            }
+        }
+
+>>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198

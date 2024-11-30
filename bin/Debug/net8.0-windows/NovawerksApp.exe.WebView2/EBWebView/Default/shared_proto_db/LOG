@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 2024/11/09-18:39:12.527 7be0 Reusing MANIFEST C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db/MANIFEST-000001
 2024/11/09-18:39:12.528 7be0 Recovering log #3
 2024/11/09-18:39:12.528 7be0 (ignoring error) C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db/000003.log: dropping 330 bytes; Corruption: checksum mismatch
 2024/11/09-18:39:12.528 7be0 Reusing old log C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db/000003.log 
+=======
+2024/10/21-17:55:04.016 445c Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db/MANIFEST-000001
+2024/10/21-17:55:04.017 445c Recovering log #3
+2024/10/21-17:55:04.017 445c Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\shared_proto_db/000003.log 
+>>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198
