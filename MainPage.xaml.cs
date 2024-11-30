@@ -143,13 +143,7 @@ private async void LoginButton_Click(object sender, RoutedEventArgs e)
         #region UI Helpers
         private void HighlightCurrentPage(string activePageName = "MainPageMenuItem")
         {
-
-            // Highlight the current page
-            if (FindName(activePageName) is TextBlock activeTextBlock)
-            {
-                activeTextBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ActiveTextColor));
             }
-        }
 #endregion
         
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

@@ -62,19 +62,5 @@ private void MainWindow_Loaded(object sender, RoutedEventArgs e)
                 DragMove();
             }
         }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     }
 }
-=======
->>>>>>> d88090a1445fa0cf2455b7c2d2af10ab34cb5fda
-        
-        
-            }
-        }
-
-<<<<<<< HEAD
-=======
->>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198
->>>>>>> d88090a1445fa0cf2455b7c2d2af10ab34cb5fda

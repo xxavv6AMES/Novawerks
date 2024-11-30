@@ -4,146 +4,92 @@
       xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       Background="#121212" Foreground="#E0E0E0">
 
-    <!-- Root Grid Element -->
     <Grid>
         <!-- Define Columns and Rows for Layout -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="230"/>    <!-- For Left Menu, always visible -->
-            <ColumnDefinition Width="*" />    <!-- For Main Content -->
+            <ColumnDefinition Width="230"/>    
+            <ColumnDefinition Width="*" />    
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>    <!-- For Menu -->
-            <RowDefinition Height="*" />      <!-- For Content -->
-            <RowDefinition Height="Auto"/>    <!-- For Footer -->
+            <RowDefinition Height="Auto"/>    
+            <RowDefinition Height="*" />      
+            <RowDefinition Height="Auto"/>    
         </Grid.RowDefinitions>
 
-        <!-- Menu Bar -->
-<DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="True" Background="#1F1F1F" Height="30">
-<Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
-    <MenuItem Header="_File">
-        <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
-    </MenuItem>
-    <MenuItem Header="_Edit">
-        <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Click="UndoMenuItem_Click" Foreground="#B0B0B0"/>
-        <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Click="RedoMenuItem_Click" Foreground="#B0B0B0"/>
-    </MenuItem>
-    <MenuItem Header="_View">
-        <MenuItem Header="_Refresh" InputGestureText="F5" Click="RefreshMenuItem_Click" Foreground="#B0B0B0"/>
-    </MenuItem>
-    <MenuItem Header="_Account">
-        <MenuItem Header="_Login" Click="LoginButton_Click" Foreground="#B0B0B0"/>
-        <MenuItem Header="_Logout" Click="LogoutButton_Click" Foreground="#B0B0B0"/>
-    </MenuItem>
+        <!-- Top Menu -->
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="True" Background="#1F1F1F" Height="30">
+            <Menu DockPanel.Dock="Left" Background="#1F1F1F" Foreground="#E0E0E0" VerticalAlignment="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Exit" InputGestureText="Alt+F4" Click="ExitMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Undo" InputGestureText="Ctrl+Z" Click="UndoMenuItem_Click" Foreground="#B0B0B0"/>
+                    <MenuItem Header="_Redo" InputGestureText="Ctrl+Y" Click="RedoMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="_Refresh" InputGestureText="F5" Click="RefreshMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_Account">
+                    <MenuItem Header="_Login" Click="LoginButton_Click" Foreground="#B0B0B0"/>
+                    <MenuItem Header="_Logout" Click="LogoutButton_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
 
-    <MenuItem Header="_Help">
-        <MenuItem Header="_Help Center" InputGestureText="Ctrl+H" Click="HelpMenuItem_Click" Foreground="#B0B0B0"/>
-    </MenuItem>
-</Menu>
-</DockPanel>
-
-
-        <!-- Left Menu (Always Visible) -->
+        <!-- Left Sidebar -->
         <Border x:Name="LeftMenu" Background="#2F2F2F" Width="230" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch">
             <DockPanel LastChildFill="True">
                 <StackPanel DockPanel.Dock="Top">
-                    <TextBlock x:Name="MainPageMenuItem" Text="Home" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="ForumPageMenuItem" Text="Forums" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="NWASPageMenuItem" Text="NW Addon Store" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock x:Name="MainPageMenuItem" Text="Home" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="MainPageButton_Click"/>
+                    <TextBlock x:Name="ForumPageMenuItem" Text="Forums" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="ForumPageButton_Click"/>
+                    <TextBlock x:Name="NWASPageMenuItem" Text="NW Addon Store" Margin="10" Padding="10" Foreground="#CCCCCC" Cursor="Hand" FontSize="16" FontWeight="Medium" MouseDown="NWASPageButton_Click"/>
                 </StackPanel>
-
-                <!-- Settings Button -->
                 <Button x:Name="SettingsButton" Content="Settings" Height="40" Background="#FFA500" Foreground="White" VerticalAlignment="Bottom" Margin="10"
-                        Click="SettingsButton_Click" FontFamily="{StaticResource xGFF}" FontWeight="Bold"/>
+                        Click="SettingsButton_Click" FontWeight="Bold"/>
             </DockPanel>
         </Border>
 
-        <!-- Content Area with Frame for Navigation -->
+        <!-- Main Content Area -->
         <Grid Grid.Row="1" Grid.Column="1" Margin="20">
             <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
                 <StackPanel>
                     <!-- Intro Text -->
-                    <TextBlock Text="Welcome..." FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock Text="Sup? Find everything you need and want, right here in the NDE!" FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                    <TextBlock Text="Welcome..." FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#E0E0E0"/>
+                    <TextBlock Text="Sup? Find everything you need and want, right here in the NDE!" FontSize="16" Margin="0,0,0,20" Foreground="#B0B0B0"/>
 
-        <!-- Novawerks ID Information Section -->
-        <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
-            <StackPanel>
-                    <TextBlock Text="My Novawerks ID" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}" />
-        
-        <!-- User Profile Picture -->
-        <Image x:Name="UserProfilePicture" Width="50" Height="50" Margin="0,10,0,10" />
-        
-        <!-- Username and Email -->
-                    <TextBlock x:Name="UsernameTextBlock" FontSize="18" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                    <TextBlock x:Name="EmailTextBlock" FontSize="16" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-            </StackPanel>
-        </Border>
-
-                    <!-- Latest App Update Information -->
+                    <!-- User Information -->
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                         <StackPanel>
-                            <TextBlock Text="Latest Update:" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="v0.9.0-EA" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="The 5th primary EarlyAccess release of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website." FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="My Novawerks ID" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0"/>
+                            <Image x:Name="UserProfilePicture" Width="50" Height="50" Margin="0,10,0,10"/>
+                            <TextBlock x:Name="UsernameTextBlock" FontSize="18" Foreground="#B0B0B0"/>
+                            <TextBlock x:Name="EmailTextBlock" FontSize="16" Foreground="#B0B0B0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Update Section -->
+                    <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="Latest Update:" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0"/>
+                            <TextBlock Text="v0.9.0-EA" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0"/>
+                            <TextBlock Text="The 5th primary EarlyAccess release of the Novawerks Desktop Experience!&#x0a;Check out the full changelog on our website." FontSize="14" Foreground="#B0B0B0"/>
                             <TextBlock>
                                 <Hyperlink NavigateUri="https://werks.nova.xxavvgroup.com/nde" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="Read about this update" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
+                                    <TextBlock Text="Read about this update" Foreground="#FFA500"/>
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>
                     </Border>
 
-                    <!-- Latest Blog Post Information -->
-                    <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
-                        <StackPanel>
-<<<<<<< HEAD
-                            <TextBlock Text="Novawerks Forums &amp; Blog" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Join us there! We'd be so happy if you showed up." FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Check out the link below to get started. We have a wonderful blog and a great live community!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock>
-                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="CHECK OUT NOVAWERKS FORUMS" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
-=======
-<<<<<<< HEAD
-                            <TextBlock Text="Novawerks Forums" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Join in on all the action at the Novawerks Forums!" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Sign up for an account using the link below. We hope to see you there!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock>
-                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="Sign Up Now" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
-=======
-                            <TextBlock Text="Novawerks Forums &amp; Blog" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Join us there! We'd be so happy if you showed up." FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock Text="Check out the link below to get started. We have a wonderful blog and a great live community!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
-                            <TextBlock>
-                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
-                                    <TextBlock Text="CHECK OUT NOVAWERKS FORUMS" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
->>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198
->>>>>>> d88090a1445fa0cf2455b7c2d2af10ab34cb5fda
-                                </Hyperlink>
-                            </TextBlock>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- Plugin Launcher Section -->
-                    <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
-                        <StackPanel>
-                            <TextBlock Text="Addon Launcher" FontSize="22" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}" Margin="0,0,0,10"/>
-                            <!-- Active Plugin Square -->
-                            <Border Background="#FFA500" Padding="50" HorizontalAlignment="Center">
-                                <TextBlock Text="Main App" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
-                            </Border>
-                        </StackPanel>
+                    <!-- Footer -->
+                    <Border Background="#1F1F1F" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30" VerticalAlignment="Bottom">
+                        <TextBlock Text="Novawerks Desktop Experience ©2024 Novawerks &amp; xxavv6AMES" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#CCCCCC"/>
                     </Border>
                 </StackPanel>
             </ScrollViewer>
-
-    <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
-    </Grid>
-
-        <!-- Footer -->
-        <Border Background="#1F1F1F" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30" VerticalAlignment="Bottom">
-            <TextBlock Text="Novawerks Desktop Experience ©2024 Novawerks &amp; xxavv6AMES" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#CCCCCC" FontFamily="{StaticResource xGFF}"/>
-        </Border>
+        </Grid>
     </Grid>
 </Page>
