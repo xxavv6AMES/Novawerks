@@ -96,12 +96,30 @@
                     <!-- Latest Blog Post Information -->
                     <Border Background="#2F2F2F" Padding="15" Margin="0,0,0,20">
                         <StackPanel>
+<<<<<<< HEAD
                             <TextBlock Text="Novawerks Forums &amp; Blog" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
                             <TextBlock Text="Join us there! We'd be so happy if you showed up." FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                             <TextBlock Text="Check out the link below to get started. We have a wonderful blog and a great live community!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
                             <TextBlock>
                                 <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
                                     <TextBlock Text="CHECK OUT NOVAWERKS FORUMS" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
+=======
+<<<<<<< HEAD
+                            <TextBlock Text="Novawerks Forums" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Join in on all the action at the Novawerks Forums!" FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Sign up for an account using the link below. We hope to see you there!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock>
+                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
+                                    <TextBlock Text="Sign Up Now" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
+=======
+                            <TextBlock Text="Novawerks Forums &amp; Blog" FontSize="24" FontWeight="Bold" Foreground="#E0E0E0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Join us there! We'd be so happy if you showed up." FontSize="20" FontWeight="SemiBold" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock Text="Check out the link below to get started. We have a wonderful blog and a great live community!" FontSize="14" Foreground="#B0B0B0" FontFamily="{StaticResource xGFF}"/>
+                            <TextBlock>
+                                <Hyperlink NavigateUri="https://forums.nova.xxavvgroup.com" RequestNavigate="Hyperlink_RequestNavigate">
+                                    <TextBlock Text="CHECK OUT NOVAWERKS FORUMS" Foreground="#FFA500" FontFamily="{StaticResource xGFF}"/>
+>>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198
+>>>>>>> d88090a1445fa0cf2455b7c2d2af10ab34cb5fda
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>

@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 2024/11/30-12:22:06.447 6e94 Reusing MANIFEST C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
 2024/11/30-12:22:06.448 6e94 Recovering log #3
 2024/11/30-12:22:06.448 6e94 Reusing old log C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/000003.log 
+=======
+<<<<<<< HEAD
+2024/11/09-18:39:12.502 8348 Reusing MANIFEST C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
+2024/11/09-18:39:12.502 8348 Recovering log #12
+2024/11/09-18:39:12.502 8348 Reusing old log C:\Users\mxavn\NovawerksApp\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/000012.log 
+=======
+2024/10/21-17:55:03.994 2984 Reusing MANIFEST C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
+2024/10/21-17:55:03.995 2984 Recovering log #12
+2024/10/21-17:55:03.995 2984 Reusing old log C:\Users\mxavn\Downloads\Novawerks\bin\Debug\net8.0-windows\NovawerksApp.exe.WebView2\EBWebView\Default\Site Characteristics Database/000012.log 
+>>>>>>> 7fb5e3c1b1e173b4ea50eb652312a54e46deb198
+>>>>>>> d88090a1445fa0cf2455b7c2d2af10ab34cb5fda
