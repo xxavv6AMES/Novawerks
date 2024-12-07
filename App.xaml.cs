@@ -92,7 +92,7 @@ namespace NovawerksApp
                 Domain = "auth.novawerks.xxavvgroup.com",
                 ClientId = "aUjxl8FbT9j68N9YTpfLsOwOFV6Vsv1m",
                 Scope = "openid profile email",
-                RedirectUri = "NDE://callback"
+                RedirectUri = "https://auth.nova.xxavvgroup.com/login/callback"
             });
         }
 
